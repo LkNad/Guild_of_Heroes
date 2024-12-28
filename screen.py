@@ -127,7 +127,7 @@ class MenuWindow(QWidget):
         QMessageBox.information(self, "выбор персонажа", "Здесь вы сможете выбрать персонажа!")
 
     def button3_run(self):
-        QMessageBox.information(self, "мои результаты", "Здесь вы сможете посмотреть свои результаты!")
+        QMessageBox.information(self, "мои результаты", "Здесь вы сможете посмотреть свои результаты!!")
 
 
 if __name__ == "__main__":
