@@ -1,9 +1,11 @@
 import sys
 import sqlite3
+import threading
 from PyQt5.QtWidgets import (
     QApplication, QWidget, QVBoxLayout, QLineEdit, QPushButton, QMessageBox, QLabel)
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import Qt
+from menu import MenuWindow
 
 # Создание базы данных
 conn = sqlite3.connect('users.db')
@@ -22,9 +24,11 @@ class Screen(QWidget):
 
         # Установка фона
         self.background_label = QLabel(self)
-        self.background_pixmap = QPixmap("фон для проекта.jpg")
+        self.background_pixmap = QPixmap("фон.jpg")
         self.background_label.setPixmap(self.background_pixmap)
         self.background_label.setScaledContents(True)
+
+
         self.background_label.setGeometry(0, 0, 500, 400)
 
         # Надпись
@@ -40,19 +44,16 @@ class Screen(QWidget):
         self.main_window = MainWindow()
         self.main_window.show()
 
-
 class MainWindow(QWidget):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Заметки")
+        self.setWindowTitle("Вход")
         self.setGeometry(1200, 900, 500, 400)
-
-
 
         self.layout = QVBoxLayout()
 
         self.username_input = QLineEdit(self)
-        self.username_input.setPlaceholderText("Никнейм")
+        self.username_input.setPlaceholderText("Имя пользователя")
         self.layout.addWidget(self.username_input)
 
         self.password_input = QLineEdit(self)
@@ -78,7 +79,7 @@ class MainWindow(QWidget):
         if user:
             self.open_menu()
         else:
-            QMessageBox.warning(self, "Ошибка", "Неверный никнейм или пароль!")
+            QMessageBox.warning(self, "Ошибка", "Неверное имя пользователя или пароль!")
 
     def register(self):
         username = self.username_input.text()
@@ -89,46 +90,15 @@ class MainWindow(QWidget):
             QMessageBox.information(self, "Успех", "Регистрация успешна!")
             self.open_menu()
         except sqlite3.IntegrityError:
-            QMessageBox.warning(self, "Ошибка", "Никнейм уже существует!")
+            QMessageBox.warning(self, "Ошибка", "Имя пользователя уже существует!")
 
     def open_menu(self):
-        self.menu_window = MenuWindow()
-        self.menu_window.show()
-        self.close()  # Закрыть главное окно
+        threading.Thread(target=self.run_menu).start()  # Запуск Pygame в отдельном потоке
+        self.close()
 
-
-class MenuWindow(QWidget):
-    def __init__(self):
-        super().__init__()
-        self.setWindowTitle("Меню")
-        self.setGeometry(1200, 900, 400, 300)
-
-        self.layout = QVBoxLayout()
-
-        # Кнопки
-        self.button1 = QPushButton("правила игры", self)
-        self.button1.clicked.connect(self.button1_run)
-        self.layout.addWidget(self.button1)
-
-        self.button2 = QPushButton("выбор персонажа", self)
-        self.button2.clicked.connect(self.button2_run)
-        self.layout.addWidget(self.button2)
-
-        self.button3 = QPushButton("мои результаты", self)
-        self.button3.clicked.connect(self.button3_run)
-        self.layout.addWidget(self.button3)
-
-        self.setLayout(self.layout)
-
-    def button1_run(self):
-        QMessageBox.information(self, "правила игры", "Здесь будут правила игры!")
-
-    def button2_run(self):
-        QMessageBox.information(self, "выбор персонажа", "Здесь вы сможете выбрать персонажа!")
-
-    def button3_run(self):
-        QMessageBox.information(self, "мои результаты", "Здесь вы сможете посмотреть свои результаты!!")
-
+    def run_menu(self):
+        menu_window = MenuWindow()
+        menu_window.run()
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
