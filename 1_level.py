@@ -8,8 +8,10 @@ pygame.key.set_repeat(200, 70)
 size = width, height = 500, 500
 screen = pygame.display.set_mode(size)
 FPS = 50
-JUMP_POWER = 30 # сила с которой прыгает персонаж
+JUMP_POWER = 30  # сила с которой прыгает персонаж
 GRAVITY = 0.1  # гравитация
+MONSTER_VELOCITY = 7
+MONSTER_FPS = 45
 clock = pygame.time.Clock()
 
 
@@ -80,6 +82,7 @@ def load_level(filename):
 
 tile_images = {
     'wall': load_image('box.png'),
+    'monster': load_image('mar.png'),
     'empty': load_image('ggrass0.png')
 }
 player_image = load_image('mag1.png')
@@ -94,6 +97,7 @@ all_sprites = pygame.sprite.Group()
 tiles_group = pygame.sprite.Group()
 wall_group = pygame.sprite.Group()
 player_group = pygame.sprite.Group()
+monsters_group = pygame.sprite.Group()
 
 
 def generate_level(level):
@@ -106,6 +110,8 @@ def generate_level(level):
                 Tile('wall', x, y)
             elif level[y][x] == '@':
                 Tile('empty', x, y)
+            elif level[y][x] == '!':
+                Tile('monster', x, y)
                 new_player = Player(x, y)
     # вернем игрока, а также размер поля в клетках
     return new_player, x, y
@@ -138,7 +144,7 @@ class Player(pygame.sprite.Sprite):
         self.rect.y += JUMP_POWER
         if (pygame.sprite.groupcollide(player_group, wall_group, False,
                                        False) or not (
-        pygame.sprite.groupcollide(tiles_group, player_group, False, False))):
+                pygame.sprite.groupcollide(tiles_group, player_group, False, False))):
             self.rect.y -= JUMP_POWER
         else:
             for i in range(10):
@@ -154,9 +160,8 @@ class Player(pygame.sprite.Sprite):
                 player_group.draw(screen)
                 pygame.display.flip()
 
-                clock.tick(FPS*1.2)
-        clock.tick(FPS*5)
-
+                clock.tick(FPS * 1.2)
+        clock.tick(FPS * 5)
 
     def update_jump(self):
         # применяем гравитационный эффект:
@@ -174,6 +179,19 @@ class Player(pygame.sprite.Sprite):
         else:
             self.velocity -= self.gravity
             self.rect.y -= self.velocity
+
+class Monster(pygame.sprite.Sprite):
+    def __init__(self, pos_x, pos_y):
+        super().__init__(player_group, all_sprites)
+        self.tile_type = "monster"
+        self.rect = self.image.get_rect().move(
+            tile_width * pos_x + 15, tile_height * pos_y + 7)
+
+    def dvigenie(self):
+        self.rect.x += MONSTER_VELOCITY
+        pass
+
+
 
 
 class Camera:
