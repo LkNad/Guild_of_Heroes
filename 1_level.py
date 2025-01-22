@@ -8,8 +8,10 @@ pygame.key.set_repeat(200, 70)
 size = width, height = 500, 500
 screen = pygame.display.set_mode(size)
 FPS = 50
-JUMP_POWER = 10 # сила с которой прыгает персонаж
-GRAVITY = 0.35 # гравитация
+JUMP_POWER = 30  # сила с которой прыгает персонаж
+GRAVITY = 0.1  # гравитация
+MONSTER_VELOCITY = 7
+MONSTER_FPS = 45
 clock = pygame.time.Clock()
 
 
@@ -80,6 +82,7 @@ def load_level(filename):
 
 tile_images = {
     'wall': load_image('box.png'),
+    'monster': load_image('mar.png'),
     'empty': load_image('ggrass0.png')
 }
 player_image = load_image('mag1.png')
@@ -94,6 +97,7 @@ all_sprites = pygame.sprite.Group()
 tiles_group = pygame.sprite.Group()
 wall_group = pygame.sprite.Group()
 player_group = pygame.sprite.Group()
+monsters_group = pygame.sprite.Group()
 
 
 def generate_level(level):
@@ -106,6 +110,8 @@ def generate_level(level):
                 Tile('wall', x, y)
             elif level[y][x] == '@':
                 Tile('empty', x, y)
+            elif level[y][x] == '!':
+                Tile('monster', x, y)
                 new_player = Player(x, y)
     # вернем игрока, а также размер поля в клетках
     return new_player, x, y
@@ -128,29 +134,63 @@ class Player(pygame.sprite.Sprite):
         super().__init__(player_group, all_sprites)
         self.image = player_image
         self.tile_type = "player"
-        self.velocity_y = 0
         self.rect = self.image.get_rect().move(
             tile_width * pos_x + 15, tile_height * pos_y + 7)
-        self.on_ground = False
-
-    # это всё дело чтобы прыгать, т.е. обновление при прыжке
-    def update_jump(self):
-        # гравитация
-        self.velocity_y += GRAVITY
-        self.rect.y += self.velocity_y
-
-        # проверка на столкновение с землёй
-        if self.rect.y >= width - 50:
-            self.rect.y = height - 50
-            self.on_ground = True
-            self.velocity_y = 0
-        else:
-            self.on_ground = False
+        self.velocity = 0
+        self.gravity = GRAVITY
 
     # прыгать
     def jump(self):
-        if self.on_ground:
-            self.velocity_y -= JUMP_POWER
+        self.rect.y += JUMP_POWER
+        if (pygame.sprite.groupcollide(player_group, wall_group, False,
+                                       False) or not (
+                pygame.sprite.groupcollide(tiles_group, player_group, False, False))):
+            self.rect.y -= JUMP_POWER
+        else:
+            for i in range(10):
+                self.rect.y -= JUMP_POWER * GRAVITY
+                all_sprites.update()
+
+                screen.fill(pygame.Color(71, 116, 12))
+                camera.update(player)
+                for sprite in all_sprites:
+                    camera.apply(sprite)
+
+                tiles_group.draw(screen)
+                player_group.draw(screen)
+                pygame.display.flip()
+
+                clock.tick(FPS * 1.2)
+        clock.tick(FPS * 5)
+
+    def update_jump(self):
+        # применяем гравитационный эффект:
+        # движение с ускорением под действием гравитации
+
+        if not (pygame.sprite.groupcollide(player_group, wall_group,
+                                           False,
+                                           False)):
+            self.velocity += self.gravity
+            self.rect.y += self.velocity
+        elif pygame.sprite.groupcollide(tiles_group, player_group, False,
+                                        False):
+            self.velocity += self.gravity
+            self.rect.y += self.velocity
+        else:
+            self.velocity -= self.gravity
+            self.rect.y -= self.velocity
+
+class Monster(pygame.sprite.Sprite):
+    def __init__(self, pos_x, pos_y):
+        super().__init__(player_group, all_sprites)
+        self.tile_type = "monster"
+        self.rect = self.image.get_rect().move(
+            tile_width * pos_x + 15, tile_height * pos_y + 7)
+
+    def dvigenie(self):
+        self.rect.x += MONSTER_VELOCITY
+        pass
+
 
 
 
@@ -171,36 +211,77 @@ class Camera:
         self.dy = -(target.rect.y + target.rect.h // 2 - height // 2)
 
 
-
 start_screen()
 player, level_x, level_y = generate_level(load_level('road.txt'))
 running = True
 STEP = 10
+
+player = Player(0, 1.5)  # Спавн игрока
 camera = Camera()
-playerr = Player() # вот это мне кажется что то тут не так
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
-                player.rect.x -= STEP
-                if pygame.sprite.groupcollide(player_group, wall_group, False, False):
-                    player.rect.x += STEP
-            if event.key == pygame.K_RIGHT:
-                player.rect.x += STEP
-                if pygame.sprite.groupcollide(player_group, wall_group, False, False):
+                if pygame.key.get_mods() == 4097:
+                    player.rect.x -= STEP * 2
+                    if pygame.sprite.groupcollide(player_group, wall_group,
+                                                  False,
+                                                  False):
+                        player.rect.x += STEP * 2
+                    elif not (
+                            pygame.sprite.groupcollide(tiles_group,
+                                                       player_group, False,
+                                                       False)):
+                        player.rect.x += STEP * 4
+                else:
                     player.rect.x -= STEP
-            if event.key == pygame.K_UP:
-                playerr.jump() # функция прыганья
-                if pygame.sprite.groupcollide(player_group, wall_group, False, False):
-                    player.rect.y += STEP
-                # кнопку вниз оставила потому что персонаж почему то находится изначально выше чем должен
-            if event.key == pygame.K_DOWN:
-                player.rect.y += STEP
-                if pygame.sprite.groupcollide(player_group, wall_group, False, False):
-                    player.rect.y -= STEP
-
+                    if pygame.sprite.groupcollide(player_group, wall_group,
+                                                  False,
+                                                  False):
+                        player.rect.x += STEP
+                    elif not (
+                            pygame.sprite.groupcollide(tiles_group,
+                                                       player_group, False,
+                                                       False)):
+                        player.rect.x += STEP * 2
+            if event.key == pygame.K_RIGHT:
+                if pygame.key.get_mods() == 4097:
+                    player.rect.x += STEP * 2
+                    if pygame.sprite.groupcollide(player_group, wall_group,
+                                                  False,
+                                                  False):
+                        player.rect.x -= STEP * 2
+                    elif not (
+                            pygame.sprite.groupcollide(tiles_group,
+                                                       player_group, False,
+                                                       False)):
+                        player.rect.x -= STEP * 4
+                else:
+                    player.rect.x += STEP
+                    if pygame.sprite.groupcollide(player_group, wall_group,
+                                                  False,
+                                                  False):
+                        player.rect.x -= STEP
+                    elif not (
+                            pygame.sprite.groupcollide(tiles_group,
+                                                       player_group, False,
+                                                       False)):
+                        player.rect.x -= STEP * 2
+            if event.key == pygame.K_UP or event.key == pygame.K_SPACE:
+                if pygame.sprite.groupcollide(player_group, wall_group,
+                                              False,
+                                              False) or not (
+                        pygame.sprite.groupcollide(tiles_group,
+                                                   player_group, False,
+                                                   False)):
+                    player.jump()
+                else:
+                    JUMP_POWER = -JUMP_POWER
+                    player.jump()
+                    JUMP_POWER = -JUMP_POWER
+                # функция прыганья
             all_sprites.update()
 
     screen.fill(pygame.Color(71, 116, 12))
