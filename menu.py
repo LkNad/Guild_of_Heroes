@@ -12,9 +12,9 @@ class MenuWindow:
         self.screen = pygame.display.set_mode((width, height))
         pygame.display.set_caption("Меню")
         self.running = True
-        self.background_image = pygame.image.load("фон.jpg")
+        self.background_image = pygame.image.load("forest.jpeg")
         self.background_image = pygame.transform.scale(self.background_image, (width, height))
-        self.button1 = pygame.Rect(70, 100, 260, 40)
+        self.button1 = pygame.Rect(70, 100, 260, 41)
         self.button2 = pygame.Rect(70, 160, 260, 40)
         self.button3 = pygame.Rect(70, 220, 260, 40)
 
