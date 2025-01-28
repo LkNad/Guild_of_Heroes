@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.1" orientation="orthogonal" renderorder="right-down" width="60" height="15" tilewidth="50" tileheight="50" infinite="0" nextlayerid="3" nextobjectid="1">
+ <tileset firstgid="1" source="data/tower_fon_1 (1).tsx"/>
+ <tileset firstgid="221" source="data/tower_fon_2 (1).tsx"/>
+ <tileset firstgid="441" source="data/walls_far.tsx"/>
+ <tileset firstgid="541" source="data/walls_side_top_far.tsx"/>
+ <tileset firstgid="595" source="data/Spike-Sprite.tsx"/>
+ <tileset firstgid="604" source="data/obstacles.tsx"/>
+ <layer id="1" name="Слой тайлов 1" width="60" height="15">
+  <data encoding="base64" compression="zlib">
+   eJzd13XQVFUYwOG7nw5ioKAS0s0nIN0gIN0gIN2gSHcoJl2KTYci3SFgd2B3d3d3P3dWZ3DnuzuLCzOOM/vMztzZ+Z3z3vPP2f1BEOxPw8M8wqM8FvHscZ7gSZ7iaZ7hWZ7jeV7gRV7iZV7h1cPQS6eV6jv4v8yb2Er2+9d4nTd4k7d4m3d4l/d4nw/4kI/4mE/4lM/4nC/4Mo1ObvKQl3ycQn4KUJBCFKYIRSlGcUpQklKUpgyZSXpf8TXf8C3f8T0/8CM/8TO/8Cu/8Tt/EMR8yOAIjoz9+86pvspSjvKcRgUqUonKVKEq1ahODWpSi9rUoS71guheF7JZ7yiyczTHcCzHkYPjOYGc5OJETuJkcpOHvORLo3O6fdSnAQ05g0Y0pglNaUZzWtCSVrSmDW1pR3s6BNG9cN781itAQQpRmCIUpRjFKUFJSlGaMmSG50JZylE+jc6Z9tGRTnTmrL/21pVudKcHPelFb/rQl370ZwADGRRE90IVrFeRSlSmClWpRnVqUJNa1KYOdakXngv1aUDDNDpn28c5DOZchjCUYQxnBCMZxWjGMJZxjGcCE5nE5CC6F87byHqNaUJTmtGcFrSkFa1pQ1va0Z4O4bnQkU50TqNznn2czxQu4EIu4mIu4VKmMo3pzGAms5jNHOYyj/lB1r2/310X63WlG93pQU960Zs+9KUfQUbWBoezZsSl0unPAAYyiMtkLmcBV3AlV3E113At17GQRSxmCUtZxnJWsJJVQXRviLWGMozhjGAkoxidMN/4JPNOOWDeUGJnDGMZF4t3JjCRSUzmepkbWM2NrGEt61jPBjayic1sYSvb2M4OdrKL3UF0LzMj2vSE+WYnmXdBwryhqZ5Ni8U7M5jJrFi8M4e5zGM+N8nsYS/7uJlbuJXbuJ07uJO7uJt7uJf7uJ8HeJCHguhesnkXJcy3LMm8q7OYN7QwFu8sZglLY/HOclawklWxf97XDvaufDB3sTXWWss61rOBjWxiM1vYyja2s4Od7GJ3eC7sYS/70uikOlOq/x3+6/fnQ9U5UCq/SdWhnvdPykzlVA==
+  </data>
+ </layer>
+ <layer id="2" name="Слой тайлов 2" width="60" height="15">
+  <data encoding="base64" compression="zlib">
+   eJztkcENQEAQRSfZxtAFukAXSxdWF+gC5fiSOWw2DlywY17ykjn+lyFSlOtYQ9TCzry95Bl6dDo4eL1OcPuItgnO3Gi5X+q/F3StcOO+s39LJvx3bCTYncLs4v7w3zHgN+awgGVE++/iN1Z8N4J7j8aaG//QqyjKN9kBv44ZaA==
+  </data>
+ </layer>
+</map>
