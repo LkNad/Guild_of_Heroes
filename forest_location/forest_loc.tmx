@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.1" orientation="orthogonal" renderorder="right-down" width="60" height="15" tilewidth="50" tileheight="50" infinite="0" nextlayerid="2" nextobjectid="1">
+<map version="1.10" tiledversion="1.11.1" orientation="orthogonal" renderorder="right-down" width="60" height="15" tilewidth="50" tileheight="50" infinite="0" nextlayerid="4" nextobjectid="1">
  <tileset firstgid="1" source="data/forest.tsx"/>
  <tileset firstgid="313" source="data/rock(2).tsx"/>
  <tileset firstgid="328" source="data/rock(3).tsx"/>
  <tileset firstgid="384" source="data/rock_tree(6).tsx"/>
  <tileset firstgid="434" source="data/mini_rock(3).tsx"/>
  <tileset firstgid="438" source="data/rock_tree(4).tsx"/>
+ <tileset firstgid="447" source="data/images (1).tsx"/>
+ <tileset firstgid="647" source="data/obstacles.tsx"/>
  <layer id="1" name="Слой тайлов 1" width="60" height="15">
   <data encoding="base64" compression="zlib">
    eJzV0meMFGUcwOEdUOlSpSNSjt67IAIKyIEiKKKiSLEjNlRsWOhIs3NgAZViQQVRwDs4EoqigiagkFgQEhMT/WY3ITE+m90Jk80teyzZED48mTe77/zm/e9sEIvFylCWMziTsyhHeSpQkUpUpgpnE5zAfen2lvT5iXSj56lKNapTg5rU4hxqU4e6p3E/22496tOAhjTiXBpzHk1oSjOak0cLWtKK1rShLe1oTwc60imH/Wy7nelCV7rRnR70pBfn05s+XEBfLqQf/RnARVzMQAYxmEsYksN+tt18hjKMS7mM4VzOCEZyBVcyiqsYzdVcw7WM4TquZyw3MI7xOexn253ARG7kJm7mFm7lNm5nEncwmTu5i7u5h3uZwn3czwNM5UEeymE/2+7DPMKjTOMxHucJnmQ6M5jJLGYzh7nM4ynms4CFLGIxT/NMDvvZdp/lOZ7nBV5kCQUsZRkv8TKv8CrLWcFrvM4brGQVq1nDm7yVw3623bd5h7W8y3u8zzrW8wEb+JCP2MgmNvMxhfHfMii9eD8/SEjtbwgSUvtFbGErxWw7iXNvZwc72cUnfMpuhgQJ+cexz779LLRenEHYn2w9lc8is++Jny1I+Coye9j/mm84wMEM5453P+eLWKK7ly9jie63fMf3/MAhfuQwIzxvZAa/2PdrKecN++G8RyLrnyLz/hxZx/ubXDeXIHru8P8zg5nMYjZzmMu85PU3e3/nD/7kL/7mn+S8E5PSzRtQhrIsoSCNaD+c8d/I+mhkxv8i6/hvWRgkFEWu8e+i544/Y1Ep9E6jKtWonmHeetSnAQ1plDJnBSpSicpUCY7NGPZrUDM4NmNt6lA32S9MUZzcl9otzbz90mhJK1pnmLczXehKN7rTg570oglNaUZz8miR0m9DW9rRng50pFOyn/puw/dbUvdUzXsyc6beG77ToojiNPdmmvd/x/la1A==
+  </data>
+ </layer>
+ <layer id="3" name="Слой тайлов 2" width="60" height="15">
+  <data encoding="base64" compression="zlib">
+   eJztkssKwjAQRSfx0aX6VaI7qzu1Ox87Hz/duhHUpQpe6UglJNiiZCrkwKFhaGBuZojcjDRRDMdwoot6rN13fJMqogweVFE78/mk8vNF2e+aTJFrBucw4Yx9foMBHNYgty3TK+8V3xu8l8y7QJ4lXME1Z3PNXAozU8r5n/Nuob82jEr2ucF/W7iDe75jm7kkZqb3eXdQ68LeF33aZi6JmanqDn/CNvM6UXWH/51f7LAUx4Z0B36JmtIdBAKBQMAXD4Q7KLU=
   </data>
  </layer>
 </map>

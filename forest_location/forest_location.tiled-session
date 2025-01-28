@@ -3,8 +3,9 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "forest_location.tmx",
+    "activeFile": "",
     "expandedProjectPaths": [
+        "data",
         "."
     ],
     "fileStates": {
@@ -16,7 +17,19 @@
             "scaleInDock": 1,
             "scaleInEditor": 1
         },
+        "data/mini_rock(3).tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
         "data/rock(2).tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "data/rock(3).tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "data/rock_tree(4).tsx": {
             "scaleInDock": 1,
             "scaleInEditor": 1
         },
@@ -27,6 +40,14 @@
         "forest.tsx": {
             "scaleInDock": 1,
             "scaleInEditor": 1
+        },
+        "forest_loc.tmx": {
+            "scale": 0.20203333333333331,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1475.0041247318925,
+                "y": 346.4774789638675
+            }
         },
         "forest_location.tmx": {
             "scale": 0.20203333333333331,
@@ -49,20 +70,18 @@
     "map.tileWidth": 50,
     "map.width": 60,
     "openFiles": [
-        "forest_location.tmx",
-        "data/forest.tsx",
-        "data/rock(2).tsx",
-        "rock(3).tsx",
-        "data/rock_tree(6).tsx",
-        "data/mini_rock(1).tsx"
     ],
     "project": "forest_location.tiled-project",
     "recentFiles": [
-        "data/mini_rock(1).tsx",
+        "data/rock_tree(4).tsx",
+        "data/mini_rock(3).tsx",
         "data/rock_tree(6).tsx",
-        "rock(3).tsx",
+        "data/rock(3).tsx",
         "data/rock(2).tsx",
         "data/forest.tsx",
+        "forest_loc.tmx",
+        "data/mini_rock(1).tsx",
+        "rock(3).tsx",
         "forest_location.tmx",
         "forest.tsx"
     ],
