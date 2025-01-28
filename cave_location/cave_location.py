@@ -25,12 +25,13 @@ while running:
     keys = pygame.key.get_pressed()
     if keys[pygame.K_RIGHT]:
         offset_x += scroll_speed
+        if offset_x > max_offset_x:  # Проверка на границы карты
+            offset_x = max_offset_x
 
     if keys[pygame.K_LEFT]:
         offset_x -= scroll_speed
-
-        if offset_x > max_offset_x:
-            offset_x = max_offset_x
+        if offset_x < 0:  # Проверка на границы карты
+            offset_x = 0
 
     screen.fill((255, 255, 255))
     for layer in tmx_data.visible_layers:
