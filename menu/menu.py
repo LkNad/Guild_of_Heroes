@@ -5,18 +5,22 @@ height = 500
 black = (0, 0, 0)
 white = (255, 255, 255)
 
-
 class MenuWindow:
     def __init__(self):
         pygame.init()
+        pygame.mixer.init()  # Инициализация микшера
         self.screen = pygame.display.set_mode((width, height))
         pygame.display.set_caption("Меню")
         self.running = True
-        self.background_image = pygame.image.load("forest.jpeg")
+        self.background_image = pygame.image.load("data/fon_menu.jpg")
         self.background_image = pygame.transform.scale(self.background_image, (width, height))
         self.button1 = pygame.Rect(70, 100, 260, 41)
         self.button2 = pygame.Rect(70, 160, 260, 40)
         self.button3 = pygame.Rect(70, 220, 260, 40)
+
+
+        pygame.mixer.music.load("data/Ready_for_Action.mp3")
+        pygame.mixer.music.play(-1)  # -1 означает бесконечное воспроизведение
 
     def run(self):
         while self.running:
@@ -47,9 +51,9 @@ class MenuWindow:
         pygame.draw.rect(self.screen, white, self.button2)
         pygame.draw.rect(self.screen, white, self.button3)
 
-        button1_text = font.render("правила игры", True, black)
+        button1_text = font.render("Правила игры", True, black)
         button2_text = font.render("Выбор персонажа", True, black)
-        button3_text = font.render("мои результаты", True, black)
+        button3_text = font.render("Мои результаты", True, black)
 
         self.screen.blit(button1_text, (self.button1.x + 30, self.button1.y + 7))
         self.screen.blit(button2_text, (self.button2.x + 5, self.button2.y + 7))
@@ -69,3 +73,4 @@ class MenuWindow:
 if __name__ == "__main__":
     menu = MenuWindow()
     menu.run()
+
