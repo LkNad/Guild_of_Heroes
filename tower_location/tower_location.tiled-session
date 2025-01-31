@@ -3,15 +3,43 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "tower_loc.tmx",
+    "activeFile": "C:/Users/yarus/PycharmProjects/Guild_of_Heroes/cave_location/cave.tmx",
     "expandedProjectPaths": [
-        "data",
-        "."
+        ".",
+        "data"
     ],
     "file.lastUsedOpenFilter": "Все файлы (*)",
     "fileStates": {
+        "C:/Users/yarus/PycharmProjects/Guild_of_Heroes/cave_location/cave.tmx": {
+            "scale": 0.25254166666666666,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 1476.9839960402576,
+                "y": 300.94043887147336
+            }
+        },
+        "C:/Users/yarus/PycharmProjects/Guild_of_Heroes/cave_location/data/image.tsx": {
+            "scaleInDock": 0.33,
+            "scaleInEditor": 1
+        },
+        "C:/Users/yarus/PycharmProjects/Guild_of_Heroes/cave_location/data/stone.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/yarus/PycharmProjects/Guild_of_Heroes/cave_location/data/stone_2.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/yarus/PycharmProjects/Guild_of_Heroes/cave_location/data/stone_3.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/yarus/PycharmProjects/Guild_of_Heroes/cave_location/data/фон для пещеры.tsx": {
+            "scaleInDock": 1
+        },
         "C:/Users/yarus/PycharmProjects/Guild_of_Heroes/forest_location/data/forest.tsx": {
             "scaleInDock": 0.25
+        },
+        "C:/Users/yarus/PycharmProjects/Guild_of_Heroes/forest_location/data/images (1).tsx": {
+            "scaleInDock": 0.33,
+            "scaleInEditor": 1
         },
         "C:/Users/yarus/PycharmProjects/Guild_of_Heroes/forest_location/data/images.tsx": {
             "scaleInDock": 0.25,
@@ -19,6 +47,10 @@
         },
         "C:/Users/yarus/PycharmProjects/Guild_of_Heroes/forest_location/data/mini_rock(3).tsx": {
             "scaleInDock": 0.25
+        },
+        "C:/Users/yarus/PycharmProjects/Guild_of_Heroes/forest_location/data/obstacles.tsx": {
+            "scaleInDock": 0.33,
+            "scaleInEditor": 1
         },
         "C:/Users/yarus/PycharmProjects/Guild_of_Heroes/forest_location/data/rock(2).tsx": {
             "scaleInDock": 0.25
@@ -105,16 +137,17 @@
     "map.tileWidth": 50,
     "map.width": 60,
     "openFiles": [
-        "tower_loc.tmx",
-        "data/tower_fon_1 (1).tsx",
-        "data/tower_fon_2 (1).tsx",
-        "data/walls_far.tsx",
-        "data/walls_side_top_far.tsx",
-        "data/Tiles.tsx",
-        "data/Tiles.tsx"
+        "C:/Users/yarus/PycharmProjects/Guild_of_Heroes/forest_location/data/obstacles.tsx",
+        "C:/Users/yarus/PycharmProjects/Guild_of_Heroes/forest_location/data/images (1).tsx",
+        "C:/Users/yarus/PycharmProjects/Guild_of_Heroes/cave_location/cave.tmx",
+        "C:/Users/yarus/PycharmProjects/Guild_of_Heroes/cave_location/data/image.tsx"
     ],
     "project": "tower_location.tiled-project",
     "recentFiles": [
+        "C:/Users/yarus/PycharmProjects/Guild_of_Heroes/forest_location/data/obstacles.tsx",
+        "C:/Users/yarus/PycharmProjects/Guild_of_Heroes/forest_location/data/images (1).tsx",
+        "C:/Users/yarus/PycharmProjects/Guild_of_Heroes/cave_location/data/image.tsx",
+        "C:/Users/yarus/PycharmProjects/Guild_of_Heroes/cave_location/cave.tmx",
         "C:/Users/yarus/PycharmProjects/Guild_of_Heroes/forest_location/forest_loc.tmx",
         "C:/Users/yarus/PycharmProjects/Guild_of_Heroes/forest_location/data/images.tsx",
         "data/obstacles.tsx",
@@ -122,11 +155,7 @@
         "data/obstacles_2.tsx",
         "data/Tiles.tsx",
         "data/walls_side_top_far.tsx",
-        "data/walls_far.tsx",
-        "data/tower_fon_2 (1).tsx",
-        "data/tower_fon_1 (1).tsx",
-        "tower_loc.tmx",
-        "data/ground.tsx"
+        "data/walls_far.tsx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {

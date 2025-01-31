@@ -4,6 +4,7 @@ import pytmx
 
 # Инициализация Pygame
 pygame.init()
+pygame.mixer.init()  # Инициализация микшера
 width, height = 800, 750
 screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption("Тайловая карта с pytmx")
@@ -14,6 +15,9 @@ offset_x = 0
 scroll_speed = 1
 map_width = tmx_data.width * tmx_data.tilewidth
 max_offset_x = map_width - width
+
+pygame.mixer.music.load("data/music.mp3")
+pygame.mixer.music.play(-1)  # -1 означает бесконечное воспроизведение
 
 # Основной цикл
 running = True
