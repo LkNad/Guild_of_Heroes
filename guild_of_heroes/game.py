@@ -87,7 +87,11 @@ def main():
     for row in level:  # вся строка
         for col in row:  # каждый символ
             if col == "-":
-                pf = Platform(x, y)
+                pf = Platform_1(x, y)
+                entities.add(pf)
+                platforms.append(pf)
+            if col == "=":
+                pf = Platform_2(x, y)
                 entities.add(pf)
                 platforms.append(pf)
             if col == "P":
