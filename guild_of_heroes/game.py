@@ -73,7 +73,7 @@ def loadLevel(lvl):
 
 
 def main():
-    current_lvl = 0
+    current_lvl = 1
     loadLevel(current_lvl)
     pygame.init()  # Инициация PyGame, обязательная строчка
     screen = pygame.display.set_mode(DISPLAY)  # Создаем окошко
