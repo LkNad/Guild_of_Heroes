@@ -4,7 +4,7 @@ import sys
 import pygame
 from pygame import *
 
-from guild_of_heroes.screen_texts import win
+from screen_texts import win
 from player import *
 from blocks import *
 
@@ -148,11 +148,8 @@ def main():
         pygame.display.update()  # обновление и вывод всех изменений на экран
 
         if hero.winner:
-            win(screen)
             total_time = (pygame.time.get_ticks() - start_time) // 1000
-            font = pygame.font.Font("DreiFraktur.ttf", 34)
-            text = font.render(f"Итоговое время: {total_time} сек", True, (162, 219, 176))
-            screen.blit(text, (236, 448))
+            win(screen, total_time)
         pygame.display.update()  # обновление и вывод всех изменений на экран
 
 
