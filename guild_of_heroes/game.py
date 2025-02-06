@@ -7,7 +7,7 @@ from pygame import *
 from guild_of_heroes.screen_texts import win
 from player import *
 from blocks import *
-
+print()
 # Объявляем переменные
 WIN_WIDTH = 800  # Ширина создаваемого окна
 WIN_HEIGHT = 600  # Высота
