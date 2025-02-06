@@ -5,16 +5,15 @@ from PyQt5.QtWidgets import (
     QApplication, QWidget, QVBoxLayout, QLineEdit, QPushButton, QMessageBox, QLabel)
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import Qt
-from menu import MenuWindow
+from menu import MenuWindow  # Импортируем MenuWindow
 
 # Создание базы данных
-conn = sqlite3.connect('users.db')
+conn = sqlite3.connect('data/users.db')
 c = conn.cursor()
 c.execute('''CREATE TABLE IF NOT EXISTS users (
                 username TEXT PRIMARY KEY,
                 password TEXT)''')
 conn.commit()
-
 
 class Screen(QWidget):
     def __init__(self):
@@ -24,11 +23,9 @@ class Screen(QWidget):
 
         # Установка фона
         self.background_label = QLabel(self)
-        self.background_pixmap = QPixmap("фон.jpg")
+        self.background_pixmap = QPixmap("data/fon_1.jpg")
         self.background_label.setPixmap(self.background_pixmap)
         self.background_label.setScaledContents(True)
-
-
         self.background_label.setGeometry(0, 0, 500, 400)
 
         # Надпись
@@ -93,17 +90,20 @@ class MainWindow(QWidget):
             QMessageBox.warning(self, "Ошибка", "Имя пользователя уже существует!")
 
     def open_menu(self):
-        threading.Thread(target=self.run_menu).start()  # Запуск Pygame в отдельном потоке
+        threading.Thread(target=self.run_menu).start()  # Запуск меню в отдельном потоке
         self.close()
 
     def run_menu(self):
-        menu_window = MenuWindow()
-        menu_window.run()
+        menu_window = MenuWindow()  # Создание экземпляра MenuWindow
+        menu_window.run()  # Запуск меню
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     screen = Screen()
     screen.show()
     sys.exit(app.exec_())
+
+# Закрытие соединения с базой данных
 conn.close()
+
 
