@@ -99,7 +99,7 @@ def main():
                 entities.add(pf)
                 platforms.append(pf)
             if col == ")":
-                pf = Platform_4(x, y)
+                pf = Platform_3(x, y)
                 entities.add(pf)
                 platforms.append(pf)
             if col == "P":
