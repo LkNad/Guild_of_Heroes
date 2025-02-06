@@ -90,12 +90,16 @@ def main():
                 pf = Platform_1(x, y)
                 entities.add(pf)
                 platforms.append(pf)
-            if col == ")":
+            if col == "=":
                 pf = Platform_2(x, y)
                 entities.add(pf)
                 platforms.append(pf)
-            if col == "=":
-                pf = Platform_3(x, y)
+            if col == "-":
+                pf = Platform_4(x, y)
+                entities.add(pf)
+                platforms.append(pf)
+            if col == ")":
+                pf = Platform_4(x, y)
                 entities.add(pf)
                 platforms.append(pf)
             if col == "P":
