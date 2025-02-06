@@ -27,7 +27,7 @@ class Platform_3(sprite.Sprite):
         sprite.Sprite.__init__(self)
         self.image = Surface((PLATFORM_WIDTH, PLATFORM_HEIGHT))
         self.image.fill(Color(PLATFORM_COLOR))
-        self.image = pygame.image.load("block_3.jpg")
+        self.image = pygame.image.load("block_5.jpg")
         self.rect = Rect(x, y, PLATFORM_WIDTH, PLATFORM_HEIGHT)
 
 class Platform_4(sprite.Sprite):
@@ -35,8 +35,7 @@ class Platform_4(sprite.Sprite):
         sprite.Sprite.__init__(self)
         self.image = Surface((PLATFORM_WIDTH, PLATFORM_HEIGHT))
         self.image.fill(Color(PLATFORM_COLOR))
-        self.image = pygame.image.load("block_1.png")
-        self.image = pygame.transform.flip(self.image, True, False)
+        self.image = pygame.image.load("block_4.png")
         self.rect = Rect(x, y, PLATFORM_WIDTH, PLATFORM_HEIGHT)
 
 
