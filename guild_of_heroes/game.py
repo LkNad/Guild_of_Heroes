@@ -18,6 +18,8 @@ BACKGROUND_IMAGE2 = pygame.image.load('фон для пещеры.png')
 BACKGROUND_IMAGE2 = pygame.transform.scale(BACKGROUND_IMAGE2, (WIN_WIDTH, WIN_HEIGHT))
 lvls = ["map_1.txt", "map_2.txt"]
 
+current_lvl = 0
+
 
 def terminate():
     pygame.quit()
@@ -73,7 +75,7 @@ def loadLevel(lvl):
 
 
 def main():
-    current_lvl = 0
+    global current_lvl
     loadLevel(current_lvl)
     pygame.init()  # Инициация PyGame, обязательная строчка
     screen = pygame.display.set_mode(DISPLAY)  # Создаем окошко
@@ -83,11 +85,12 @@ def main():
     up = False
     running = False
 
-    hero = Player(playerX, playerY)  # создаем героя по (x,y) координатам
+    hero = Player(playerX, playerY, WIN_HEIGHT)  # создаем героя по (x,y) координатам
     entities.add(hero)
 
     timer = pygame.time.Clock()
     x = y = 0  # координаты
+
     for row in level:  # вся строка
         for col in row:  # каждый символ
             if col == "(":
@@ -131,6 +134,10 @@ def main():
                 print(mouse_pos)
             if e.type == KEYDOWN and e.key == K_UP:
                 up = True
+
+            if e.type == KEYDOWN and e.key == K_SPACE:
+                up = True
+
             if e.type == KEYDOWN and e.key == K_LEFT:
                 left = True
             if e.type == KEYDOWN and e.key == K_RIGHT:
@@ -140,6 +147,10 @@ def main():
 
             if e.type == KEYUP and e.key == K_UP:
                 up = False
+
+            if e.type == KEYUP and e.key == K_SPACE:
+                up = False
+
             if e.type == KEYUP and e.key == K_RIGHT:
                 right = False
             if e.type == KEYUP and e.key == K_LEFT:
@@ -166,11 +177,16 @@ def main():
         if hero.winner:
             total_time = (pygame.time.get_ticks() - start_time) // 1000
             win(screen, total_time)
-            current_lvl += 1
-            for e in pygame.event.get():  # Обрабатываем события
-                if e.type == pygame.MOUSEBUTTONDOWN:
-                    loadLevel(current_lvl)
-        pygame.display.update()  # обновление и вывод всех изменений на экран
+            if current_lvl == len(lvls):
+                pass
+            else:
+                hero.winner = False
+                current_lvl += 1
+                main()
+                # for e in pygame.event.get():  # Обрабатываем события
+                #     if e.type == pygame.MOUSEBUTTONDOWN:
+                #         loadLevel(current_lvl)
+            pygame.display.update()  # обновление и вывод всех изменений на экран
 
 
 level = []

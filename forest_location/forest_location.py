@@ -2,6 +2,8 @@ import pygame
 import sys
 import pytmx
 
+from cave_location.cave_location import tmx_data
+
 # Инициализация Pygame
 pygame.init()
 pygame.mixer.init()  # Инициализация микшера

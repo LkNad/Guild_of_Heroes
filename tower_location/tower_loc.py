@@ -5,9 +5,10 @@ import pytmx
 # Инициализация Pygame
 pygame.init()
 pygame.mixer.init()  # Инициализация микшера
-width, height = 800, 750
+width, height = 1920, 1020
 screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption("Тайловая карта с pytmx")
+screen.fill((0,0,0))
 
 # Загрузка тайловой карты
 tmx_data = pytmx.load_pygame('tower_loc.tmx')
