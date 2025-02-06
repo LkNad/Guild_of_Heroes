@@ -134,10 +134,8 @@ def main():
                 print(mouse_pos)
             if e.type == KEYDOWN and e.key == K_UP:
                 up = True
-
             if e.type == KEYDOWN and e.key == K_SPACE:
                 up = True
-
             if e.type == KEYDOWN and e.key == K_LEFT:
                 left = True
             if e.type == KEYDOWN and e.key == K_RIGHT:
@@ -177,15 +175,15 @@ def main():
         if hero.winner:
             total_time = (pygame.time.get_ticks() - start_time) // 1000
             win(screen, total_time)
-            if current_lvl == len(lvls):
+            if current_lvl >= len(lvls) -1:
                 pass
             else:
                 hero.winner = False
                 current_lvl += 1
+                hero.kill()
                 main()
-                # for e in pygame.event.get():  # Обрабатываем события
-                #     if e.type == pygame.MOUSEBUTTONDOWN:
-                #         loadLevel(current_lvl)
+                if current_lvl >= len(lvls) -1:
+                    return
             pygame.display.update()  # обновление и вывод всех изменений на экран
 
 
