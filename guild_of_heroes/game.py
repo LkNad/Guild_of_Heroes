@@ -12,8 +12,11 @@ print()
 WIN_WIDTH = 800  # Ширина создаваемого окна
 WIN_HEIGHT = 600  # Высота
 DISPLAY = (WIN_WIDTH, WIN_HEIGHT)  # Группируем ширину и высоту в одну переменную
-BACKGROUND_IMAGE = pygame.image.load('forest_bg.png')
-BACKGROUND_IMAGE = pygame.transform.scale(BACKGROUND_IMAGE, (WIN_WIDTH, WIN_HEIGHT))
+BACKGROUND_IMAGE1 = pygame.image.load('forest_bg.png')
+BACKGROUND_IMAGE1 = pygame.transform.scale(BACKGROUND_IMAGE1, (WIN_WIDTH, WIN_HEIGHT))
+BACKGROUND_IMAGE2 = pygame.image.load('фон для пещеры.png')
+BACKGROUND_IMAGE2 = pygame.transform.scale(BACKGROUND_IMAGE2, (WIN_WIDTH, WIN_HEIGHT))
+lvls = ["map_1.txt", "map_2.txt"]
 
 
 def terminate():
@@ -46,10 +49,10 @@ def camera_configure(camera, target_rect):
     return Rect(l, t, w, h)
 
 
-def loadLevel():
+def loadLevel(lvl):
     global playerX, playerY  # объявляем глобальные переменные, это координаты героя
 
-    levelFile = open("map_1.txt")
+    levelFile = open(lvls[lvl])
     line = " "
     commands = []
     while line[0] != "/":  # пока не нашли символ завершения файла
@@ -70,7 +73,8 @@ def loadLevel():
 
 
 def main():
-    loadLevel()
+    current_lvl = 0
+    loadLevel(current_lvl)
     pygame.init()  # Инициация PyGame, обязательная строчка
     screen = pygame.display.set_mode(DISPLAY)  # Создаем окошко
     pygame.display.set_caption("Guild of Heroes")  # Пишем в шапку
@@ -143,7 +147,7 @@ def main():
             if e.type == KEYUP and e.key == K_LSHIFT:
                 running = False
 
-        screen.blit(BACKGROUND_IMAGE, (0, 0))
+        screen.blit(BACKGROUND_IMAGE1, (0, 0))
 
         animatedEntities.update()  # показываеaм анимацию
         camera.update(hero)  # центризируем камеру относительно персонажа
@@ -162,6 +166,10 @@ def main():
         if hero.winner:
             total_time = (pygame.time.get_ticks() - start_time) // 1000
             win(screen, total_time)
+            current_lvl += 1
+            for e in pygame.event.get():  # Обрабатываем события
+                if e.type == pygame.MOUSEBUTTONDOWN:
+                    loadLevel(current_lvl)
         pygame.display.update()  # обновление и вывод всех изменений на экран
 
 
