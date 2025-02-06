@@ -86,12 +86,16 @@ def main():
     x = y = 0  # координаты
     for row in level:  # вся строка
         for col in row:  # каждый символ
-            if col == "-":
+            if col == "(":
                 pf = Platform_1(x, y)
                 entities.add(pf)
                 platforms.append(pf)
-            if col == "=":
+            if col == ")":
                 pf = Platform_2(x, y)
+                entities.add(pf)
+                platforms.append(pf)
+            if col == "=":
+                pf = Platform_3(x, y)
                 entities.add(pf)
                 platforms.append(pf)
             if col == "P":
