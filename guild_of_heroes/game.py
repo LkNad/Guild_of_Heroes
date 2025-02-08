@@ -14,6 +14,10 @@ DISPLAY = (WIN_WIDTH, WIN_HEIGHT)  # Группируем ширину и выс
 BACKGROUND_IMAGE1 = pygame.image.load('forest_bg.png')
 BACKGROUND_IMAGE1 = pygame.transform.scale(BACKGROUND_IMAGE1, (WIN_WIDTH, WIN_HEIGHT))
 lvls = ["map_1.txt", "map_2.txt", "map_3.txt"]
+pygame.mixer.init()  # Инициализация микшера
+
+pygame.mixer.music.load("Ready_for_Action.mp3")
+pygame.mixer.music.play(-1)  # -1 означает бесконечное воспроизведение
 
 current_lvl = 0
 
