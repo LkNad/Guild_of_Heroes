@@ -140,8 +140,7 @@ def main():
                 left = True
             if e.type == KEYDOWN and e.key == K_RIGHT:
                 right = True
-            if e.type == KEYDOWN and e.key == K_LSHIFT:
-                running = True
+
 
             if e.type == KEYUP and e.key == K_UP:
                 up = False
@@ -153,8 +152,8 @@ def main():
                 right = False
             if e.type == KEYUP and e.key == K_LEFT:
                 left = False
-            if e.type == KEYUP and e.key == K_LSHIFT:
-                running = False
+
+
 
         screen.blit(BACKGROUND_IMAGE1, (0, 0))
 
