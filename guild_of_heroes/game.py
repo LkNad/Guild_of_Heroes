@@ -7,6 +7,9 @@ from pygame import *
 from screen_texts import win
 from player import *
 from blocks import *
+from monsters import *
+
+
 # Объявляем переменные
 WIN_WIDTH = 800  # Ширина создаваемого окна
 WIN_HEIGHT = 600  # Высота
@@ -70,6 +73,11 @@ def loadLevel(lvl):
                 if commands[0] == "player":  # если первая команда - player
                     playerX = int(commands[1])  # то записываем координаты героя
                     playerY = int(commands[2])
+                if commands[0] == "monster":  # если первая команда monster, то создаем монстра
+                    mn = Monster(int(commands[1]), int(commands[2]), int(commands[3]), int(commands[4]))
+                    entities.add(mn)
+                    platforms.append(mn)
+                    monsters.add(mn)
 
 
 def main():
@@ -153,11 +161,9 @@ def main():
                 hero.rect.y = hero.startY
                 hurt(screen)
 
-
-
         screen.blit(BACKGROUND_IMAGE1, (0, 0))
 
-        animatedEntities.update()  # показываем анимацию
+        monsters.update(platforms)  # передвигаем всех монстров
         camera.update(hero)  # центризируем камеру относительно персонажа
         hero.update(left, right, up, platforms)  # передвижение
         for e in entities:
@@ -180,7 +186,7 @@ def main():
                 hero.winner = False
                 current_lvl += 1
                 hero.kill()
-                screen.fill((0,0,0))
+                screen.fill((0, 0, 0))
                 main()
                 if current_lvl >= len(lvls) - 1:
                     return
@@ -189,7 +195,6 @@ def main():
 
 level = []
 entities = pygame.sprite.Group()  # Все объекты
-animatedEntities = pygame.sprite.Group()  # все анимированные объекты, за исключением героя
 monsters = pygame.sprite.Group()  # Все передвигающиеся объекты
 platforms = []  # то, во что мы будем врезаться или опираться
 if __name__ == "__main__":
