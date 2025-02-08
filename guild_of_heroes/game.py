@@ -131,16 +131,10 @@ def main():
                 left = True
             if e.type == KEYDOWN and e.key == K_RIGHT:
                 right = True
-
-            if e.type == KEYDOWN and e.key == K_w:
-                hero.winner = True
-
             if e.type == KEYUP and e.key == K_UP:
                 up = False
-
             if e.type == KEYUP and e.key == K_SPACE:
                 up = False
-
             if e.type == KEYUP and e.key == K_RIGHT:
                 right = False
             if e.type == KEYUP and e.key == K_LEFT:
