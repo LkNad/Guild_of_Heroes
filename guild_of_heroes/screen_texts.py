@@ -30,10 +30,22 @@ def win(screen, time=0):
     clock = pygame.time.Clock()
     running = True
     while running:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                return 'exit'
-            if event.type == pygame.KEYDOWN or event.type == pygame.MOUSEBUTTONDOWN:
-                return 'menu'
+        pygame.display.flip()
+        clock.tick(FPS)
+
+def fon_hurt(screen):
+    fon_surface = pygame.Surface(screen.get_size(), pygame.SRCALPHA)
+    fon_surface.fill((255, 51, 51, 40))
+    return fon_surface
+
+
+def hurt(screen):
+    win_sound = pygame.mixer.Sound('classic_hurt.mp3')
+    fon = fon_hurt(screen)
+    screen.blit(fon, (0, 0))
+    win_sound.play()
+    clock = pygame.time.Clock()
+    running = True
+    while running:
         pygame.display.flip()
         clock.tick(FPS)

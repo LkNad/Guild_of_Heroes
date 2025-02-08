@@ -4,10 +4,9 @@ import sys
 import pygame
 from pygame import *
 
-from screen_texts import win
+from screen_texts import win, hurt
 from player import *
 from blocks import *
-print()
 # Объявляем переменные
 WIN_WIDTH = 800  # Ширина создаваемого окна
 WIN_HEIGHT = 600  # Высота
@@ -19,11 +18,6 @@ BACKGROUND_IMAGE2 = pygame.transform.scale(BACKGROUND_IMAGE2, (WIN_WIDTH, WIN_HE
 lvls = ["map_1.txt", "map_2.txt"]
 
 current_lvl = 0
-
-
-def terminate():
-    pygame.quit()
-    sys.exit()
 
 
 class Camera(object):
@@ -157,7 +151,7 @@ def main():
 
         screen.blit(BACKGROUND_IMAGE1, (0, 0))
 
-        animatedEntities.update()  # показываеaм анимацию
+        animatedEntities.update()  # показываем анимацию
         camera.update(hero)  # центризируем камеру относительно персонажа
         hero.update(left, right, up, platforms)  # передвижение
         for e in entities:
@@ -180,6 +174,7 @@ def main():
                 hero.winner = False
                 current_lvl += 1
                 hero.kill()
+                hurt(screen)
                 main()
                 if current_lvl >= len(lvls) - 1:
                     return
