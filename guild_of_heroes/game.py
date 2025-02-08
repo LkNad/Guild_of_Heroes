@@ -107,7 +107,6 @@ def main():
                 pr = Next_level(x, y)
                 entities.add(pr)
                 platforms.append(pr)
-                animatedEntities.add(pr)
 
             x += PLATFORM_WIDTH  # блоки платформы ставятся на ширине блоков
         y += PLATFORM_HEIGHT  # то же самое и с высотой
