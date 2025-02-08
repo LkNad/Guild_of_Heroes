@@ -2,6 +2,7 @@ import pygame.sprite
 from pygame import *
 
 import blocks
+from screen_texts import hurt
 from loader import load_image
 
 MOVE_SPEED = 7
@@ -13,7 +14,7 @@ GRAVITY = 0.35  # Сила, которая будет тянуть нас вни
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, x, y, map_height=600):
+    def __init__(self, x, y, map_height=600, screen=None):
         sprite.Sprite.__init__(self)
         self.xvel = 0  # скорость перемещения. 0 - стоять на месте
         self.startX = x  # Начальная позиция Х, пригодится когда будем переигрывать уровень
@@ -32,6 +33,8 @@ class Player(pygame.sprite.Sprite):
         self.winner = False
 
         self.min_height = map_height
+
+        self.screen = screen
 
     def update(self, left, right, up, platforms):
 
@@ -65,6 +68,7 @@ class Player(pygame.sprite.Sprite):
         if self.rect.y - 300 >= self.min_height:
             self.rect.x = self.startX
             self.rect.y = self.startY
+            hurt(self.screen)
 
     def collide(self, xvel, yvel, platforms):
         for p in platforms:

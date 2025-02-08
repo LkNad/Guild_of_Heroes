@@ -4,7 +4,7 @@ import sys
 import pygame
 from pygame import *
 
-from screen_texts import win, hurt
+from screen_texts import win
 from player import *
 from blocks import *
 # Объявляем переменные
@@ -77,7 +77,7 @@ def main():
     up = False
     running = False
 
-    hero = Player(playerX, playerY, WIN_HEIGHT)  # создаем героя по (x,y) координатам
+    hero = Player(playerX, playerY, WIN_HEIGHT, screen)  # создаем героя по (x,y) координатам
     entities.add(hero)
 
     timer = pygame.time.Clock()
@@ -132,6 +132,8 @@ def main():
             if e.type == KEYDOWN and e.key == K_RIGHT:
                 right = True
 
+            if e.type == KEYDOWN and e.key == K_w:
+                hero.winner = True
 
             if e.type == KEYUP and e.key == K_UP:
                 up = False
@@ -171,7 +173,6 @@ def main():
                 hero.winner = False
                 current_lvl += 1
                 hero.kill()
-                hurt(screen)
                 main()
                 if current_lvl >= len(lvls) - 1:
                     return
