@@ -4,7 +4,7 @@ import sys
 import pygame
 from pygame import *
 
-from screen_texts import win, hurt
+from screen_texts import win
 from player import *
 from blocks import *
 # Объявляем переменные
@@ -13,7 +13,11 @@ WIN_HEIGHT = 600  # Высота
 DISPLAY = (WIN_WIDTH, WIN_HEIGHT)  # Группируем ширину и высоту в одну переменную
 BACKGROUND_IMAGE1 = pygame.image.load('forest_bg.png')
 BACKGROUND_IMAGE1 = pygame.transform.scale(BACKGROUND_IMAGE1, (WIN_WIDTH, WIN_HEIGHT))
-lvls = ["map_1.txt", "map_2.txt"]
+lvls = ["map_1.txt", "map_2.txt", "map_3.txt"]
+pygame.mixer.init()  # Инициализация микшера
+
+pygame.mixer.music.load("Ready_for_Action.mp3")
+pygame.mixer.music.play(-1)  # -1 означает бесконечное воспроизведение
 
 current_lvl = 0
 
@@ -44,10 +48,12 @@ def camera_configure(camera, target_rect):
 
 
 def loadLevel(lvl):
-    global playerX, playerY  # объявляем глобальные переменные, это координаты героя
+    global playerX, playerY, level, platforms, entities  # объявляем глобальные переменные, это координаты героя
 
     levelFile = open(lvls[lvl])
     line = " "
+    level, platforms = [], []
+    entities = pygame.sprite.Group()
     commands = []
     while line[0] != "/":  # пока не нашли символ завершения файла
         line = levelFile.readline()  # считываем построчно
@@ -77,7 +83,7 @@ def main():
     up = False
     running = False
 
-    hero = Player(playerX, playerY, WIN_HEIGHT)  # создаем героя по (x,y) координатам
+    hero = Player(playerX, playerY, WIN_HEIGHT, screen)  # создаем героя по (x,y) координатам
     entities.add(hero)
 
     timer = pygame.time.Clock()
@@ -131,18 +137,21 @@ def main():
                 left = True
             if e.type == KEYDOWN and e.key == K_RIGHT:
                 right = True
-
-
             if e.type == KEYUP and e.key == K_UP:
                 up = False
-
             if e.type == KEYUP and e.key == K_SPACE:
                 up = False
-
             if e.type == KEYUP and e.key == K_RIGHT:
                 right = False
             if e.type == KEYUP and e.key == K_LEFT:
                 left = False
+
+            if e.type == KEYDOWN and e.key == K_w:
+                hero.winner = True
+            if e.type == KEYDOWN and e.key == K_d:
+                hero.rect.x = hero.startX
+                hero.rect.y = hero.startY
+                hurt(screen)
 
 
 
@@ -171,7 +180,7 @@ def main():
                 hero.winner = False
                 current_lvl += 1
                 hero.kill()
-                hurt(screen)
+                screen.fill((0,0,0))
                 main()
                 if current_lvl >= len(lvls) - 1:
                     return
