@@ -44,10 +44,12 @@ def camera_configure(camera, target_rect):
 
 
 def loadLevel(lvl):
-    global playerX, playerY  # объявляем глобальные переменные, это координаты героя
+    global playerX, playerY, level, platforms, entities  # объявляем глобальные переменные, это координаты героя
 
     levelFile = open(lvls[lvl])
     line = " "
+    level, platforms = [], []
+    entities = pygame.sprite.Group()
     commands = []
     while line[0] != "/":  # пока не нашли символ завершения файла
         line = levelFile.readline()  # считываем построчно
@@ -140,6 +142,13 @@ def main():
             if e.type == KEYUP and e.key == K_LEFT:
                 left = False
 
+            if e.type == KEYDOWN and e.key == K_w:
+                hero.winner = True
+            if e.type == KEYDOWN and e.key == K_d:
+                hero.rect.x = hero.startX
+                hero.rect.y = hero.startY
+                hurt(screen)
+
 
 
         screen.blit(BACKGROUND_IMAGE1, (0, 0))
@@ -167,6 +176,7 @@ def main():
                 hero.winner = False
                 current_lvl += 1
                 hero.kill()
+                screen.fill((0,0,0))
                 main()
                 if current_lvl >= len(lvls) - 1:
                     return
