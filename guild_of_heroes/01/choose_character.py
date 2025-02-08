@@ -80,6 +80,10 @@ class Choose_character:
         self.ramka_image = pygame.image.load("ramka.png")
         self.ramka_rect = self.ramka_image.get_rect()
         self.ramka_rect.topleft = (199, 467)
+        self.ramka_rect2 = self.ramka_image.get_rect()
+        self.ramka_rect2.topleft = (370, 496)
+
+
 
     def draw_emblems(self):
         self.screen.blit(self.button_back2_image, self.button_back2_rect.topleft)
@@ -204,6 +208,11 @@ class Choose_character:
         text_surface_level3 = font.render('3 уровень', True, WHITE)
         text_rect_level3 = text_surface_level3.get_rect(topleft=(574, 58))
         self.screen.blit(text_surface_level3, text_rect_level3)
+        self.screen.blit(self.ramka_image, self.ramka_rect2.topleft)
+        font = pygame.font.Font("DreiFraktur.ttf", 25)
+        text_surface_ramka = font.render('Откроются позже', True, BLACK)
+        text_rect_ramka = text_surface_ramka.get_rect(topleft=(420, 530))
+        self.screen.blit(text_surface_ramka, text_rect_ramka)
 
     def run_choose(self):
         self.screen.fill(BLACK)
@@ -217,6 +226,7 @@ class Choose_character:
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     mouse_pos = pygame.mouse.get_pos()
+                    print(mouse_pos)
                     if self.emblem1_rect.collidepoint(mouse_pos):
                         self.show_wars_class()
                     elif self.emblem2_rect.collidepoint(mouse_pos):
@@ -232,5 +242,5 @@ class Choose_character:
         pygame.quit()
         sys.exit()
 
-
-
+p = Choose_character()
+p.run_choose()
