@@ -174,14 +174,14 @@ def main():
         if hero.winner:
             total_time = (pygame.time.get_ticks() - start_time) // 1000
             win(screen, total_time)
-            if current_lvl >= len(lvls) -1:
+            if current_lvl >= len(lvls) - 1:
                 pass
             else:
                 hero.winner = False
                 current_lvl += 1
                 hero.kill()
                 main()
-                if current_lvl >= len(lvls) -1:
+                if current_lvl >= len(lvls) - 1:
                     return
             pygame.display.update()  # обновление и вывод всех изменений на экран
 
