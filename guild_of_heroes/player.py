@@ -3,7 +3,7 @@ from pygame import *
 
 import blocks
 from screen_texts import hurt
-from loader import load_image
+import monsters
 
 MOVE_SPEED = 7
 WIDTH = 61
@@ -73,6 +73,8 @@ class Player(pygame.sprite.Sprite):
     def collide(self, xvel, yvel, platforms):
         for p in platforms:
             if sprite.collide_rect(self, p):  # если есть пересечение платформы с игроком
+                if isinstance(p, monsters.Monster): # если пересакаемый блок - blocks.BlockDie или Monster
+                       self.winner = False # умираем
                 if isinstance(p, blocks.Next_level):  # если коснулись принцессы
                     self.winner = True  # победили!!!
                 else:
