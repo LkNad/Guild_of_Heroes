@@ -1,5 +1,7 @@
 import pygame
-from choose_character import run_choose
+from choose_character import Choose_character
+import threading # чтобы открывалось новое независимое окно
+
 
 width = 800
 height = 600
@@ -17,17 +19,11 @@ button1 = pygame.Rect(70, 100, 260, 41)
 button2 = pygame.Rect(70, 160, 260, 40)
 button3 = pygame.Rect(70, 220, 260, 40)
 
-pygame.mixer.music.load("Ready_for_Action.mp3")
-pygame.mixer.music.play(-1)  # -1 означает бесконечное воспроизведение
-
-# Кнопка возврата
-button_back_image = pygame.image.load("btn_back.png")
-# Для проверки на пересечение
-button_back_rect = button_back_image.get_rect()
-button_back_rect.topleft = (31, 26)
 
 
 def run_menu(scr):
+    pygame.mixer.music.load("Ready_for_Action.mp3")
+    pygame.mixer.music.play(-1)  # -1 означает бесконечное воспроизведение
     running = True
     while running:
         for event in pygame.event.get():
@@ -42,8 +38,7 @@ def run_menu(scr):
                     choose_character()
                 elif button3.collidepoint(mouse_pos):
                     show_results()
-                elif button_back_rect.collidepoint(mouse_pos):
-                    draw_menu()
+
 
         draw_menu()
 
@@ -61,24 +56,26 @@ def draw_menu():
     pygame.draw.rect(screen, white, button3)
 
     button1_text = font.render("Правила игры", True, black)
-    button2_text = font.render("Выбор персонажа", True, black)
+    button2_text = font.render("Персонажи", True, black)
     button3_text = font.render("Мои результаты", True, black)
 
     screen.blit(button1_text, (button1.x + 30, button1.y + 7))
-    screen.blit(button2_text, (button2.x + 5, button2.y + 7))
+    screen.blit(button2_text, (button2.x + 50, button2.y + 7))
     screen.blit(button3_text, (button3.x + 20, button3.y + 10))
     pygame.display.flip()
 
 def show_rules():
-    screen.blit(button_back_image, button_back_rect.topleft)
     pass
+
+def open_new_window_character():
+    choose_character_f = Choose_character()
+    choose_character_f.run_choose()
 
 
 def choose_character():
-    run_choose(screen)
-
+    new_window_character = threading.Thread(target=open_new_window_character)
+    new_window_character.start()
 
 
 def show_results():
-    screen.blit(button_back_image, button_back_rect.topleft)
     pass

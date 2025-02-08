@@ -81,30 +81,29 @@ class Elder:
         surface.blit(text_surface, (134, 168))
 
 
-# Список фраз с изображениями и текстами
-phrases = [
-    Elder("gildrts_2.png", "Привет, новый герой!"),
-    Elder("gildrts_1.png", "Тебя ждет великая игра."),
-    Elder("gildrts_2.png", "Стань отважным героем."),
-    Elder("gildrts_2.png", "Пройди через множество испытаний."),
-    Elder("gildrts_2.png", "Сразись с ужасными монстрами."),
-    Elder("gildrts_2.png", "Спаси нашу деревню!"),
-    Elder("gildrts_1.png", "В каждом уровне специальные задания"),
-    Elder("gildrts_2.png", "А на пути встретятся разные чудовища"),
-    Elder("gildrts_1.png", "Выполняй задания и убивай монстров"),
-    Elder("gildrts_1.png", "Каждый поверженный монстр - очки."),
-    Elder("gildrts_2.png", "Будьте готовы к сражениям!"),
-    Elder("gildrts_2.png", "Используйте навыки и ловкость."),
-    Elder("gildrts_1.png", "Каждый поверженный монстр - очки."),
-    Elder("gildrts_2.png", "Набирайте очки для перехода уровней."),
-    Elder("gildrts_2.png", "Каждый уровень сложнее предыдущего."),
-    Elder("gildrts_1.png", "Но смелость и решительность - ключ к успеху."),
-    Elder("gildrts_2.png", "Вперед, к приключениям!"),
-    Elder("gildrts_2.png", "Станьте легендой!"),
-]
-def run_menu_for_back_choose(scr):
-    run_menu(screen)
+def run_elder():
+    global phrases
+    # Список фраз с изображениями и текстами
+    phrases = [
+        Elder("gildrts_2.png", "Привет, новый герой!"),
+        Elder("gildrts_1.png", "Тебя ждет великая игра."),
+        Elder("gildrts_2.png", "Стань отважным героем."),
+        Elder("gildrts_2.png", "Пройди через множество испытаний."),
+        Elder("gildrts_2.png", "Сразись с ужасными монстрами."),
+        Elder("gildrts_2.png", "Спаси нашу деревню!"),
+        Elder("gildrts_1.png", "В каждом уровне специальные задания"),
+        Elder("gildrts_2.png", "А на пути встретятся разные чудовища"),
+        Elder("gildrts_1.png", "Выполняй уровни и убивай монстров"),
+        Elder("gildrts_1.png", "Проходи уровень быстрее!"),
+        Elder("gildrts_2.png", "Будьте готовы к сражениям!"),
+        Elder("gildrts_2.png", "Используйте навыки и ловкость."),
+        Elder("gildrts_2.png", "Каждый уровень сложнее предыдущего."),
+        Elder("gildrts_1.png", "Но смелость - ключ к успеху."),
+        Elder("gildrts_2.png", "Вперед, к приключениям!"),
+        Elder("gildrts_2.png", "Станьте легендой!"),
+    ]
 
+run_elder()
 
 def run_intro():
     current_phrase_index = 0
@@ -115,10 +114,7 @@ def run_intro():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-
             if event.type == pygame.MOUSEBUTTONDOWN:
-                mouse_pos = pygame.mouse.get_pos()
-                print(mouse_pos)
                 current_phrase_index += 1
                 if current_phrase_index >= len(phrases):
                     run_menu(screen)

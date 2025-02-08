@@ -13,8 +13,6 @@ WIN_HEIGHT = 600  # Высота
 DISPLAY = (WIN_WIDTH, WIN_HEIGHT)  # Группируем ширину и высоту в одну переменную
 BACKGROUND_IMAGE1 = pygame.image.load('forest_bg.png')
 BACKGROUND_IMAGE1 = pygame.transform.scale(BACKGROUND_IMAGE1, (WIN_WIDTH, WIN_HEIGHT))
-BACKGROUND_IMAGE2 = pygame.image.load('фон для пещеры.png')
-BACKGROUND_IMAGE2 = pygame.transform.scale(BACKGROUND_IMAGE2, (WIN_WIDTH, WIN_HEIGHT))
 lvls = ["map_1.txt", "map_2.txt"]
 
 current_lvl = 0
