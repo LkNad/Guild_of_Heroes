@@ -1,20 +1,16 @@
-# Импортируем библиотеку pygame
 import sys
-
 import pygame
 from pygame import *
-
-from screen_texts import win, hurt
+from screen_texts import win
 from player import *
 from blocks import *
-# Объявляем переменные
-WIN_WIDTH = 800  # Ширина создаваемого окна
-WIN_HEIGHT = 600  # Высота
-DISPLAY = (WIN_WIDTH, WIN_HEIGHT)  # Группируем ширину и высоту в одну переменную
+
+WIN_WIDTH = 800
+WIN_HEIGHT = 600
+DISPLAY = (WIN_WIDTH, WIN_HEIGHT)
 BACKGROUND_IMAGE1 = pygame.image.load('forest_bg.png')
 BACKGROUND_IMAGE1 = pygame.transform.scale(BACKGROUND_IMAGE1, (WIN_WIDTH, WIN_HEIGHT))
 lvls = ["map_1.txt", "map_2.txt"]
-
 current_lvl = 0
 
 
@@ -34,57 +30,69 @@ def camera_configure(camera, target_rect):
     l, t, _, _ = target_rect
     _, _, w, h = camera
     l, t = -l + WIN_WIDTH / 2, -t + WIN_HEIGHT / 2
-
-    l = min(0, l)  # Не движемся дальше левой границы
-    l = max(-(camera.width - WIN_WIDTH), l)  # Не движемся дальше правой границы
-    t = max(-(camera.height - WIN_HEIGHT), t)  # Не движемся дальше нижней границы
-    t = min(0, t)  # Не движемся дальше верхней границы
-
+    l = min(0, l)
+    l = max(-(camera.width - WIN_WIDTH), l)
+    t = max(-(camera.height - WIN_HEIGHT), t)
+    t = min(0, t)
     return Rect(l, t, w, h)
 
 
 def loadLevel(lvl):
-    global playerX, playerY  # объявляем глобальные переменные, это координаты героя
-
+    global playerX, playerY
     levelFile = open(lvls[lvl])
     line = " "
     commands = []
-    while line[0] != "/":  # пока не нашли символ завершения файла
-        line = levelFile.readline()  # считываем построчно
-        if line[0] == "[":  # если нашли символ начала уровня
-            while line[0] != "]":  # то, пока не нашли символ конца уровня
-                line = levelFile.readline()  # считываем построчно уровень
-                if line[0] != "]":  # и если нет символа конца уровня
-                    endLine = line.find("|")  # то ищем символ конца строки
-                    level.append(line[0: endLine])  # и добавляем в уровень строку от начала до символа "|"
-
-        if line[0] != "":  # если строка не пустая
-            commands = line.split()  # разбиваем ее на отдельные команды
-            if len(commands) > 1:  # если количество команд > 1, то ищем эти команды
-                if commands[0] == "player":  # если первая команда - player
-                    playerX = int(commands[1])  # то записываем координаты героя
+    while line[0] != "/":
+        line = levelFile.readline()
+        if line[0] == "[":
+            while line[0] != "]":
+                line = levelFile.readline()
+                if line[0] != "]":
+                    endLine = line.find("|")
+                    level.append(line[0: endLine])
+        if line[0] != "":
+            commands = line.split()
+            if len(commands) > 1:
+                if commands[0] == "player":
+                    playerX = int(commands[1])
                     playerY = int(commands[2])
+
+
+class Button:
+    def __init__(self, text, x, y, width, height, color, hover_color):
+        self.text = text
+        self.rect = Rect(x, y, width, height)
+        self.color = color
+        self.hover_color = hover_color
+        self.font = pygame.font.Font(None, 36)
+
+    def draw(self, surface):
+        pygame.draw.rect(surface, self.color, self.rect)
+        text_surface = self.font.render(self.text, True, (255, 255, 255))
+        text_rect = text_surface.get_rect(center=self.rect.center)
+        surface.blit(text_surface, text_rect)
+
+    def is_hovered(self, pos):
+        return self.rect.collidepoint(pos)
 
 
 def main():
     global current_lvl
     loadLevel(current_lvl)
-    pygame.init()  # Инициация PyGame, обязательная строчка
-    screen = pygame.display.set_mode(DISPLAY)  # Создаем окошко
-    pygame.display.set_caption("Guild of Heroes")  # Пишем в шапку
-
-    left = right = False  # по умолчанию - стоим
+    pygame.init()
+    screen = pygame.display.set_mode(DISPLAY)
+    pygame.display.set_caption("Guild of Heroes")
+    left = right = False
     up = False
     running = False
-
-    hero = Player(playerX, playerY, WIN_HEIGHT)  # создаем героя по (x,y) координатам
+    hero = Player(playerX, playerY, WIN_HEIGHT)
     entities.add(hero)
-
     timer = pygame.time.Clock()
-    x = y = 0  # координаты
+    x = y = 0
+    exit_button = Button("Выйти", 500, 540, 100, 50, (50, 128, 68), (0, 0, 0))
 
-    for row in level:  # вся строка
-        for col in row:  # каждый символ
+    for row in level:
+        for col in row:
             if col == "(":
                 pf = Platform_1(x, y)
                 entities.add(pf)
@@ -105,24 +113,29 @@ def main():
                 pr = Next_level(x, y)
                 entities.add(pr)
                 platforms.append(pr)
+            x += PLATFORM_WIDTH
+        y += PLATFORM_HEIGHT
+        x = 0
 
-            x += PLATFORM_WIDTH  # блоки платформы ставятся на ширине блоков
-        y += PLATFORM_HEIGHT  # то же самое и с высотой
-        x = 0  # на каждой новой строчке начинаем с нуля
-
-    total_level_width = len(level[0]) * PLATFORM_WIDTH  # Высчитываем фактическую ширину уровня
-    total_level_height = len(level) * PLATFORM_HEIGHT  # высоту
-
+    total_level_width = len(level[0]) * PLATFORM_WIDTH
+    total_level_height = len(level) * PLATFORM_HEIGHT
     camera = Camera(camera_configure, total_level_width, total_level_height)
-    start_time = pygame.time.get_ticks()  # Запоминаем начальное время
-    while not hero.winner:  # Основной цикл программы
+    start_time = pygame.time.get_ticks()
+
+    while not hero.winner:
         timer.tick(60)
-        for e in pygame.event.get():  # Обрабатываем события
+        for e in pygame.event.get():
             if e.type == QUIT:
-                raise SystemExit
+                pygame.quit()
+                sys.exit()
             if e.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = pygame.mouse.get_pos()
-                print(mouse_pos)
+                if exit_button.is_hovered(mouse_pos):
+                    from menu import MenuWindow
+
+                    menu_window = MenuWindow()
+                    menu_window.run()
+
             if e.type == KEYDOWN and e.key == K_UP:
                 up = True
             if e.type == KEYDOWN and e.key == K_SPACE:
@@ -131,57 +144,50 @@ def main():
                 left = True
             if e.type == KEYDOWN and e.key == K_RIGHT:
                 right = True
-
-
             if e.type == KEYUP and e.key == K_UP:
                 up = False
-
             if e.type == KEYUP and e.key == K_SPACE:
                 up = False
-
             if e.type == KEYUP and e.key == K_RIGHT:
                 right = False
             if e.type == KEYUP and e.key == K_LEFT:
                 left = False
 
-
-
         screen.blit(BACKGROUND_IMAGE1, (0, 0))
+        animatedEntities.update()
+        camera.update(hero)
+        hero.update(left, right, up, platforms)
 
-        animatedEntities.update()  # показываем анимацию
-        camera.update(hero)  # центризируем камеру относительно персонажа
-        hero.update(left, right, up, platforms)  # передвижение
         for e in entities:
             screen.blit(e.image, camera.apply(e))
-            # Получаем текущее время
+
         current_time = pygame.time.get_ticks()
-        # Вычисляем прошедшее время
         elapsed_time = current_time - start_time
         font = pygame.font.Font("DreiFraktur.ttf", 17)
         text = font.render(f"Время: {elapsed_time // 1000} сек", True, (50, 128, 68))
         screen.blit(text, (623, 562))
-        pygame.display.update()  # обновление и вывод всех изменений на экран
+
+        exit_button.draw(screen)
+
+        pygame.display.update()
 
         if hero.winner:
             total_time = (pygame.time.get_ticks() - start_time) // 1000
             win(screen, total_time)
             if current_lvl >= len(lvls) - 1:
-                pass
+                break
             else:
                 hero.winner = False
                 current_lvl += 1
                 hero.kill()
-                hurt(screen)
                 main()
-                if current_lvl >= len(lvls) - 1:
-                    return
-            pygame.display.update()  # обновление и вывод всех изменений на экран
 
 
 level = []
-entities = pygame.sprite.Group()  # Все объекты
-animatedEntities = pygame.sprite.Group()  # все анимированные объекты, за исключением героя
-monsters = pygame.sprite.Group()  # Все передвигающиеся объекты
-platforms = []  # то, во что мы будем врезаться или опираться
+entities = pygame.sprite.Group()
+animatedEntities = pygame.sprite.Group()
+monsters = pygame.sprite.Group()
+platforms = []
+
 if __name__ == "__main__":
     main()
