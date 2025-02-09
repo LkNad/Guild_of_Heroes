@@ -4,20 +4,20 @@ import sys
 class Game:
     def __init__(self):
         pygame.init()
-        self.WIDTH, self.HEIGHT = 1300, 800
+        self.WIDTH, self.HEIGHT = 800, 600
         self.screen = pygame.display.set_mode((self.WIDTH, self.HEIGHT))
         pygame.display.set_caption("Персонажи")
 
         self.character_images = [
-            pygame.image.load("1_character_choose.png"),
-            pygame.image.load("2_character_choose.png"),
-            pygame.image.load("3_character_choose.png"),
-            pygame.image.load("4_character_choose.png"),
-            pygame.image.load("5_character_choose.png"),
-            pygame.image.load("6_character_choose.png"),
+            pygame.image.load("data/1_character_choose.png"),
+            pygame.image.load("data/2_character_choose.png"),
+            pygame.image.load("data/3_character_choose.png"),
+            pygame.image.load("data/4_character_choose.png"),
+            pygame.image.load("data/5_character_choose.png"),
+            pygame.image.load("data/6_character_choose.png"),
         ]
 
-        self.background_image = pygame.image.load("fon_menu.jpg")
+        self.background_image = pygame.image.load("data/fon_menu.jpg")
         self.background_image = pygame.transform.scale(self.background_image, (self.WIDTH, self.HEIGHT))
 
         self.current_character = 0

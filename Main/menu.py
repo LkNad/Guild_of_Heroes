@@ -62,10 +62,31 @@ class MenuWindow:
         pygame.display.flip()
 
     def show_rules(self):
-        from vstuplenie import Elder  # Импортируем, чтобы двойной импорт не мешал
-        self.menu_window = Elder()
-        self.menu_window.show()
-        self.close()
+        try:
+            from vstuplenie import run_elder, run_intro, Elder
+            size = WIDTH, HEIGHT = 1300, 800
+            screen = pygame.display.set_mode(size)
+
+            # Цвета
+            WHITE = (255, 255, 255)
+            BLACK = (0, 0, 0)
+            pygame.display.set_caption("Guild of Heroes")
+            pygame.mixer.init()  # Инициализация микшера
+
+            background_image_ded = pygame.image.load("data/fon_deda.jpg")
+
+            background_image_ded = pygame.transform.scale(background_image_ded,
+                                                          (WIDTH, HEIGHT))
+            pygame.mixer.music.load("data/vstuplenie_music.mp3")
+            pygame.mixer.music.play(-1)
+
+            run_elder()
+            run_intro()
+            self.close()
+
+        except Exception:
+            pass
+
 
     def play(self):
         from game import main  # Импортируем, чтобы двойной импорт не мешал

@@ -26,8 +26,8 @@ class Player(pygame.sprite.Sprite):
         self.rect = Rect(x, y, WIDTH, HEIGHT)  # прямоугольный объект
         self.image.set_colorkey(Color(COLOR))  # делаем фон прозрачным
         # Загрузка картинок
-        self.left_image = pygame.image.load("7_ch.png")
-        self.right_step_image = pygame.image.load("7_ch_step.png")
+        self.left_image = pygame.image.load("data/7_ch.png")
+        self.right_step_image = pygame.image.load("data/7_ch_step.png")
         self.left_step_image = pygame.transform.flip(self.right_step_image, True, False)
         self.image = self.left_image  # по умолчанию
         self.winner = False

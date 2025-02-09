@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import (
-    QApplication, QWidget, QVBoxLayout, QLineEdit, QPushButton, QMessageBox, QLabel)
+    QApplication, QWidget, QVBoxLayout, QLineEdit, QPushButton, QMessageBox,
+    QLabel)
 from PyQt5.QtGui import QPixmap, QFont
 from PyQt5.QtCore import Qt
 import sys
@@ -20,7 +21,7 @@ class Screen(QWidget):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Guild of Heroes")
-        self.setGeometry(1000, 700, 1200, 800)
+        self.setGeometry(250, 150, 1200, 800)
 
         # Установка фона
         self.background_label = QLabel(self)
@@ -53,7 +54,7 @@ class MainWindow(QWidget):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Вход")
-        self.setGeometry(950, 600, 1300, 800)
+        self.setGeometry(250, 150, 1300, 800)
 
         self.layout = QVBoxLayout()
 
@@ -84,45 +85,44 @@ class MainWindow(QWidget):
         self.register_button.clicked.connect(self.register)
         self.layout.addWidget(self.register_button)
 
-
-
-
         self.setLayout(self.layout)
-
 
     def login(self):
         username = self.username_input.text()
         password = self.password_input.text()
-        c.execute("SELECT * FROM users WHERE username=? AND password=?", (username, password))
+        c.execute("SELECT * FROM users WHERE username=? AND password=?",
+                  (username, password))
         user = c.fetchone()
         if user:
             self.open_menu()
         else:
-            QMessageBox.warning(self, "Ошибка", "Неверное имя пользователя или пароль!")
+            QMessageBox.warning(self, "Ошибка",
+                                "Неверное имя пользователя или пароль!")
 
     def register(self):
         username = self.username_input.text()
         password = self.password_input.text()
         try:
-            c.execute("INSERT INTO users (username, password) VALUES (?, ?)", (username, password))
+            c.execute("INSERT INTO users (username, password) VALUES (?, ?)",
+                      (username, password))
             conn.commit()
             QMessageBox.information(self, "Успех", "Регистрация успешна!")
-            from vstuplenie import Elder  # Импортируем, чтобы двойной импорт не мешал
+            from vstuplenie import \
+                Elder  # Импортируем, чтобы двойной импорт не мешал
             self.menu_window = Elder()
             self.menu_window.show()
             self.close()
         except sqlite3.IntegrityError:
-            QMessageBox.warning(self, "Ошибка", "Имя пользователя уже существует!")
+            QMessageBox.warning(self, "Ошибка",
+                                "Имя пользователя уже существует!")
 
     def open_menu(self):
         threading.Thread(target=self.run_menu).start()
         self.close()
 
-
     def run_menu(self):
         menu_window = MenuWindow()
         menu_window.run()
-
 
 
 if __name__ == "__main__":
@@ -130,5 +130,3 @@ if __name__ == "__main__":
     screen = Screen()
     screen.show()
     sys.exit(app.exec_())
-
-

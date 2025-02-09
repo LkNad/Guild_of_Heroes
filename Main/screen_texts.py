@@ -23,8 +23,8 @@ def fon_win(screen, total_time):
 
 
 def win(screen, time=0):
-    win_sound = pygame.mixer.Sound('win_music.mp3')
-    win_sound2 = pygame.mixer.Sound('ura-pobeda.mp3')
+    win_sound = pygame.mixer.Sound('data/win_music.mp3')
+    win_sound2 = pygame.mixer.Sound('data/ura-pobeda.mp3')
     fon = fon_win(screen, time)
     screen.blit(fon, (0, 0))
     win_sound.play()
@@ -65,7 +65,7 @@ def fon_hurt(screen):
 
 
 def hurt(screen):
-    win_sound = pygame.mixer.Sound('classic_hurt.mp3')
+    win_sound = pygame.mixer.Sound('data/classic_hurt.mp3')
     fon = fon_hurt(screen)
     screen.blit(fon, (0, 0))
     win_sound.play()

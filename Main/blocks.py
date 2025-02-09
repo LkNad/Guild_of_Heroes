@@ -11,7 +11,7 @@ class Platform_1(sprite.Sprite):
         sprite.Sprite.__init__(self)
         self.image = Surface((PLATFORM_WIDTH, PLATFORM_HEIGHT))
         self.image.fill(Color(PLATFORM_COLOR))
-        self.image = pygame.image.load("block_1.png")
+        self.image = pygame.image.load("data/block_1.png")
         self.rect = Rect(x, y, PLATFORM_WIDTH, PLATFORM_HEIGHT)
 
 class Platform_2(sprite.Sprite):
@@ -19,7 +19,7 @@ class Platform_2(sprite.Sprite):
         sprite.Sprite.__init__(self)
         self.image = Surface((PLATFORM_WIDTH, PLATFORM_HEIGHT))
         self.image.fill(Color(PLATFORM_COLOR))
-        self.image = pygame.image.load("block_2.jpg")
+        self.image = pygame.image.load("data/block_2.jpg")
         self.rect = Rect(x, y, PLATFORM_WIDTH, PLATFORM_HEIGHT)
 
 class Platform_3(sprite.Sprite):
@@ -27,7 +27,7 @@ class Platform_3(sprite.Sprite):
         sprite.Sprite.__init__(self)
         self.image = Surface((PLATFORM_WIDTH, PLATFORM_HEIGHT))
         self.image.fill(Color(PLATFORM_COLOR))
-        self.image = pygame.image.load("block_5.png")
+        self.image = pygame.image.load("data/block_5.png")
         self.rect = Rect(x, y, PLATFORM_WIDTH, PLATFORM_HEIGHT)
 
 class Platform_4(sprite.Sprite):
@@ -35,12 +35,12 @@ class Platform_4(sprite.Sprite):
         sprite.Sprite.__init__(self)
         self.image = Surface((PLATFORM_WIDTH, PLATFORM_HEIGHT))
         self.image.fill(Color(PLATFORM_COLOR))
-        self.image = pygame.image.load("block_4.png")
+        self.image = pygame.image.load("data/block_4.png")
         self.rect = Rect(x, y, PLATFORM_WIDTH, PLATFORM_HEIGHT)
 
 
 class Next_level(Platform_1):
     def __init__(self, x, y):
         Platform_1.__init__(self, x, y)
-        self.image = pygame.image.load("next_level.png")
+        self.image = pygame.image.load("data/next_level.png")
 

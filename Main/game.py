@@ -4,13 +4,15 @@ from pygame import *
 from screen_texts import win
 from player import *
 from blocks import *
+from loader import *
 
 WIN_WIDTH = 800
 WIN_HEIGHT = 600
 DISPLAY = (WIN_WIDTH, WIN_HEIGHT)
-BACKGROUND_IMAGE1 = pygame.image.load('forest_bg.png')
-BACKGROUND_IMAGE1 = pygame.transform.scale(BACKGROUND_IMAGE1, (WIN_WIDTH, WIN_HEIGHT))
-lvls = ["map_1.txt", "map_2.txt"]
+BACKGROUND_IMAGE1 = load_image('forest_bg.png')
+BACKGROUND_IMAGE1 = pygame.transform.scale(BACKGROUND_IMAGE1,
+                                           (WIN_WIDTH, WIN_HEIGHT))
+lvls = ["data/map_1.txt", "data/map_2.txt"]
 current_lvl = 0
 
 
@@ -38,10 +40,12 @@ def camera_configure(camera, target_rect):
 
 
 def loadLevel(lvl):
-    global playerX, playerY, level  # Добавляем level в глобальные переменные
-    level = []  # Инициализация level как пустого списка
+    global playerX, playerY, level, platforms, entities  # объявляем глобальные переменные, это координаты героя
+
     levelFile = open(lvls[lvl])
     line = " "
+    level, platforms = [], []
+    entities = pygame.sprite.Group()
     commands = []
     while line[0] != "/":
         line = levelFile.readline()
@@ -97,7 +101,7 @@ def main():
     left = right = False
     up = False
     running = False
-    hero = Player(playerX, playerY, WIN_HEIGHT)
+    hero = Player(playerX, playerY, WIN_HEIGHT, screen)  # создаем героя по (x,y) координатам
     entities.add(hero)
     timer = pygame.time.Clock()
     x = y = 0
@@ -164,6 +168,14 @@ def main():
             if e.type == KEYUP and e.key == K_LEFT:
                 left = False
 
+
+            if e.type == KEYDOWN and e.key == K_w:
+                hero.winner = True
+            if e.type == KEYDOWN and e.key == K_d:
+                hero.rect.x = hero.startX
+                hero.rect.y = hero.startY
+                hurt(screen)
+
         screen.blit(BACKGROUND_IMAGE1, (0, 0))
         animatedEntities.update()
         camera.update(hero)
@@ -175,7 +187,8 @@ def main():
         current_time = pygame.time.get_ticks()
         elapsed_time = current_time - start_time
         font = pygame.font.Font("DreiFraktur.ttf", 17)
-        text = font.render(f"Время: {elapsed_time // 1000} сек", True, (50, 128, 68))
+        text = font.render(f"Время: {elapsed_time // 1000} сек", True,
+                           (50, 128, 68))
         screen.blit(text, (623, 562))
 
         exit_button.draw(screen)
@@ -186,15 +199,17 @@ def main():
             total_time = (pygame.time.get_ticks() - start_time) // 1000
             win(screen, total_time)
             if current_lvl >= len(lvls) - 1:
-                break
+                pass
             else:
                 hero.winner = False
                 current_lvl += 1
                 hero.kill()
+                screen.fill((0, 0, 0))
                 main()
+                if current_lvl >= len(lvls) - 1:
+                    return
+            pygame.display.update()
 
 
 if __name__ == "__main__":
     main()
-
-
