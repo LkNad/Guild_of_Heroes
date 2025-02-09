@@ -1,7 +1,7 @@
 import sys
 import pygame
 from pygame import *
-from screen_texts import win
+from screen_texts import win, hurt
 from player import *
 from blocks import *
 
@@ -38,9 +38,12 @@ def camera_configure(camera, target_rect):
 
 
 def loadLevel(lvl):
-    global playerX, playerY
+    global playerX, playerY, level, platforms, entities  # объявляем глобальные переменные, это координаты героя
+
     levelFile = open(lvls[lvl])
     line = " "
+    level, platforms = [], []
+    entities = pygame.sprite.Group()
     commands = []
     while line[0] != "/":
         line = levelFile.readline()
@@ -85,7 +88,7 @@ def main():
     left = right = False
     up = False
     running = False
-    hero = Player(playerX, playerY, WIN_HEIGHT)
+    hero = Player(playerX, playerY, WIN_HEIGHT, screen)  # создаем героя по (x,y) координатам
     entities.add(hero)
     timer = pygame.time.Clock()
     x = y = 0
@@ -153,6 +156,14 @@ def main():
             if e.type == KEYUP and e.key == K_LEFT:
                 left = False
 
+
+            if e.type == KEYDOWN and e.key == K_w:
+                hero.winner = True
+            if e.type == KEYDOWN and e.key == K_d:
+                hero.rect.x = hero.startX
+                hero.rect.y = hero.startY
+                hurt(screen)
+
         screen.blit(BACKGROUND_IMAGE1, (0, 0))
         animatedEntities.update()
         camera.update(hero)
@@ -175,12 +186,16 @@ def main():
             total_time = (pygame.time.get_ticks() - start_time) // 1000
             win(screen, total_time)
             if current_lvl >= len(lvls) - 1:
-                break
+                pass
             else:
                 hero.winner = False
                 current_lvl += 1
                 hero.kill()
+                screen.fill((0, 0, 0))
                 main()
+                if current_lvl >= len(lvls) - 1:
+                    return
+            pygame.display.update()  # обновление и вывод всех изменений на экран
 
 
 level = []
