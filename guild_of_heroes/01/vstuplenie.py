@@ -4,7 +4,7 @@ from menu import MenuWindow
 
 pygame.init()
 
-size = WIDTH, HEIGHT = 1000, 800
+size = WIDTH, HEIGHT = 1300, 800
 screen = pygame.display.set_mode(size)
 
 # Цвета
@@ -14,6 +14,7 @@ pygame.display.set_caption("Guild of Heroes")
 pygame.mixer.init()  # Инициализация микшера
 
 background_image_ded = pygame.image.load("fon_deda.jpg")
+
 background_image_ded = pygame.transform.scale(background_image_ded, (WIDTH, HEIGHT))
 pygame.mixer.music.load("vstuplenie_music.mp3")
 pygame.mixer.music.play(-1)  # -1 означает бесконечное воспроизведение

@@ -1,7 +1,7 @@
 import sys
 import pygame
 from pygame import *
-from screen_texts import win, hurt
+from screen_texts import win
 from player import *
 from blocks import *
 
@@ -38,12 +38,10 @@ def camera_configure(camera, target_rect):
 
 
 def loadLevel(lvl):
-    global playerX, playerY, level, platforms, entities  # объявляем глобальные переменные, это координаты героя
-
+    global playerX, playerY, level  # Добавляем level в глобальные переменные
+    level = []  # Инициализация level как пустого списка
     levelFile = open(lvls[lvl])
     line = " "
-    level, platforms = [], []
-    entities = pygame.sprite.Group()
     commands = []
     while line[0] != "/":
         line = levelFile.readline()
@@ -59,6 +57,7 @@ def loadLevel(lvl):
                 if commands[0] == "player":
                     playerX = int(commands[1])
                     playerY = int(commands[2])
+    levelFile.close()
 
 
 class Button:
@@ -82,13 +81,23 @@ class Button:
 def main():
     global current_lvl
     loadLevel(current_lvl)
+
+    # Инициализация Pygame и экран
     pygame.init()
     screen = pygame.display.set_mode(DISPLAY)
     pygame.display.set_caption("Guild of Heroes")
+
+    # Инициализация глобальных переменных
+    global entities, animatedEntities, monsters, platforms
+    entities = pygame.sprite.Group()
+    animatedEntities = pygame.sprite.Group()
+    monsters = pygame.sprite.Group()
+    platforms = []
+
     left = right = False
     up = False
     running = False
-    hero = Player(playerX, playerY, WIN_HEIGHT, screen)  # создаем героя по (x,y) координатам
+    hero = Player(playerX, playerY, WIN_HEIGHT)
     entities.add(hero)
     timer = pygame.time.Clock()
     x = y = 0
@@ -135,7 +144,6 @@ def main():
                 mouse_pos = pygame.mouse.get_pos()
                 if exit_button.is_hovered(mouse_pos):
                     from menu import MenuWindow
-
                     menu_window = MenuWindow()
                     menu_window.run()
 
@@ -155,14 +163,6 @@ def main():
                 right = False
             if e.type == KEYUP and e.key == K_LEFT:
                 left = False
-
-
-            if e.type == KEYDOWN and e.key == K_w:
-                hero.winner = True
-            if e.type == KEYDOWN and e.key == K_d:
-                hero.rect.x = hero.startX
-                hero.rect.y = hero.startY
-                hurt(screen)
 
         screen.blit(BACKGROUND_IMAGE1, (0, 0))
         animatedEntities.update()
@@ -186,23 +186,15 @@ def main():
             total_time = (pygame.time.get_ticks() - start_time) // 1000
             win(screen, total_time)
             if current_lvl >= len(lvls) - 1:
-                pass
+                break
             else:
                 hero.winner = False
                 current_lvl += 1
                 hero.kill()
-                screen.fill((0, 0, 0))
                 main()
-                if current_lvl >= len(lvls) - 1:
-                    return
-            pygame.display.update()  # обновление и вывод всех изменений на экран
 
-
-level = []
-entities = pygame.sprite.Group()
-animatedEntities = pygame.sprite.Group()
-monsters = pygame.sprite.Group()
-platforms = []
 
 if __name__ == "__main__":
     main()
+
+

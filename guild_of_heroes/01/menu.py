@@ -1,8 +1,8 @@
 import pygame
 
 
-width = 1000
-height = 500
+width = 1300
+height = 800
 black = (0, 0, 0)
 white = (255, 255, 255)
 
@@ -15,9 +15,9 @@ class MenuWindow:
         self.running = True
         self.background_image = pygame.image.load("data/fon_menu.jpg")
         self.background_image = pygame.transform.scale(self.background_image, (width, height))
-        self.button1 = pygame.Rect(70, 100, 260, 41)
-        self.button2 = pygame.Rect(70, 160, 260, 40)
-        self.button3 = pygame.Rect(70, 220, 260, 40)
+        self.button1 = pygame.Rect(70, 100, 400, 80)
+        self.button2 = pygame.Rect(70, 260, 400, 80)
+        self.button3 = pygame.Rect(70, 420, 400, 80)
 
 
         pygame.mixer.music.load("data/Ready_for_Action.mp3")
@@ -54,15 +54,18 @@ class MenuWindow:
 
         button1_text = font.render("Правила игры", True, black)
         button2_text = font.render("Играть", True, black)
-        button3_text = font.render("Мои результаты", True, black)
+        button3_text = font.render("Выбор персонажа", True, black)
 
         self.screen.blit(button1_text, (self.button1.x + 30, self.button1.y + 7))
         self.screen.blit(button2_text, (self.button2.x + 80, self.button2.y + 7))
-        self.screen.blit(button3_text, (self.button3.x + 20, self.button3.y + 10))
+        self.screen.blit(button3_text, (self.button3.x + 8, self.button3.y + 10))
         pygame.display.flip()
 
     def show_rules(self):
-        pass
+        from vstuplenie import Elder  # Импортируем, чтобы двойной импорт не мешал
+        self.menu_window = Elder()
+        self.menu_window.show()
+        self.close()
 
     def play(self):
         from game import main  # Импортируем, чтобы двойной импорт не мешал
@@ -71,7 +74,10 @@ class MenuWindow:
         self.close()
 
     def show_results(self):
-        pass
+        from char import Game  # Импортируем, чтобы двойной импорт не мешал
+        self.menu_window = Game()
+        self.menu_window.show()
+        self.close()
 
 
 if __name__ == "__main__":
