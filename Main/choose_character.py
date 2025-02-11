@@ -27,9 +27,9 @@ class Choose_character:
         self.background_image_characters_2 = pygame.transform.scale(self.background_image_characters_2, (WIDTH, HEIGHT))
 
         # Загружаем изображения гербов
-        self.emblem1_image = pygame.image.load("gerb_1.png")
-        self.emblem2_image = pygame.image.load("gerb_2.png")
-        self.emblem3_image = pygame.image.load("gerb_3.png")
+        self.emblem1_image = pygame.image.load("data/gerb_1.png")
+        self.emblem2_image = pygame.image.load("data/gerb_2.png")
+        self.emblem3_image = pygame.image.load("data/gerb_3.png")
         # Для проверки на пересечение
         self.emblem1_rect = self.emblem1_image.get_rect()
         self.emblem1_rect.topleft = (72, 178)
@@ -38,15 +38,15 @@ class Choose_character:
         self.emblem3_rect = self.emblem1_image.get_rect()
         self.emblem3_rect.topleft = (550, 170)
         # Загружаем изображения персонажей
-        self.character1_image = pygame.image.load("1_character_choose.png")
-        self.character2_image = pygame.image.load("2_character_choose.png")
-        self.character3_image = pygame.image.load("3_character_choose.png")
-        self.character4_image = pygame.image.load("4_character_choose.png")
-        self.character5_image = pygame.image.load("5_character_choose.png")
-        self.character6_image = pygame.image.load("6_character_choose.png")
-        self.character7_image = pygame.image.load("7_character_choose.png")
-        self.character8_image = pygame.image.load("8_character_choose.png")
-        self.character9_image = pygame.image.load("9_character_choose.png")
+        self.character1_image = pygame.image.load("data/1_character_choose.png")
+        self.character2_image = pygame.image.load("data/2_character_choose.png")
+        self.character3_image = pygame.image.load("data/3_character_choose.png")
+        self.character4_image = pygame.image.load("data/4_character_choose.png")
+        self.character5_image = pygame.image.load("data/5_character_choose.png")
+        self.character6_image = pygame.image.load("data/6_character_choose.png")
+        self.character7_image = pygame.image.load("data/7_character_choose.png")
+        self.character8_image = pygame.image.load("data/8_character_choose.png")
+        self.character9_image = pygame.image.load("data/9_character_choose.png")
         # Для проверки на пересечение
         self.character1_rect = self.character1_image.get_rect()
         self.character1_rect.topleft = (72, 178)
@@ -67,17 +67,17 @@ class Choose_character:
         self.character9_rect = self.character9_image.get_rect()
         self.character9_rect.topleft = (524, 108)
         # Кнопка
-        self.button_back_image = pygame.image.load("btn_back.png")
+        self.button_back_image = pygame.image.load("data/btn_back.png")
         # Для проверки на пересечение
         self.button_back_rect = self.button_back_image.get_rect()
         self.button_back_rect.topleft = (31, 26)
         # Кнопка2
-        self.button_back2_image = pygame.image.load("btn_back.png")
+        self.button_back2_image = pygame.image.load("data/btn_back.png")
         # Для проверки на пересечение
         self.button_back2_rect = self.button_back2_image.get_rect()
         self.button_back2_rect.topleft = (31, 26)
 
-        self.ramka_image = pygame.image.load("ramka.png")
+        self.ramka_image = pygame.image.load("data/ramka.png")
         self.ramka_rect = self.ramka_image.get_rect()
         self.ramka_rect.topleft = (199, 467)
 

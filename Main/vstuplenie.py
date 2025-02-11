@@ -4,7 +4,7 @@ from menu import MenuWindow
 
 pygame.init()
 
-size = WIDTH, HEIGHT = 1000, 800
+size = WIDTH, HEIGHT = 1300, 800
 screen = pygame.display.set_mode(size)
 
 # Цвета
@@ -13,9 +13,10 @@ BLACK = (0, 0, 0)
 pygame.display.set_caption("Guild of Heroes")
 pygame.mixer.init()  # Инициализация микшера
 
-background_image_ded = pygame.image.load("fon_deda.jpg")
+background_image_ded = pygame.image.load("data/fon_deda.jpg")
+
 background_image_ded = pygame.transform.scale(background_image_ded, (WIDTH, HEIGHT))
-pygame.mixer.music.load("vstuplenie_music.mp3")
+pygame.mixer.music.load("data/vstuplenie_music.mp3")
 pygame.mixer.music.play(-1)  # -1 означает бесконечное воспроизведение
 
 # Функция для отображения текста
@@ -80,22 +81,22 @@ class Elder:
 def run_elder():
     global phrases
     phrases = [
-        Elder("gildrts_2.png", "Привет, новый герой!"),
-        Elder("gildrts_1.png", "Тебя ждет великая игра."),
-        Elder("gildrts_2.png", "Стань отважным героем."),
-        Elder("gildrts_2.png", "Пройди через множество испытаний."),
-        Elder("gildrts_2.png", "Сразись с ужасными монстрами."),
-        Elder("gildrts_2.png", "Спаси нашу деревню!"),
-        Elder("gildrts_1.png", "В каждом уровне специальные задания"),
-        Elder("gildrts_2.png", "А на пути встретятся разные чудовища"),
-        Elder("gildrts_1.png", "Выполняй уровни и убивай монстров"),
-        Elder("gildrts_1.png", "Проходи уровень быстрее!"),
-        Elder("gildrts_2.png", "Будьте готовы к сражениям!"),
-        Elder("gildrts_2.png", "Используйте навыки и ловкость."),
-        Elder("gildrts_2.png", "Каждый уровень сложнее предыдущего."),
-        Elder("gildrts_1.png", "Но смелость - ключ к успеху."),
-        Elder("gildrts_2.png", "Вперед, к приключениям!"),
-        Elder("gildrts_2.png", "Станьте легендой!"),
+        Elder("data/gildrts_2.png", "Привет, новый герой!"),
+        Elder("data/gildrts_1.png", "Тебя ждет великая игра."),
+        Elder("data/gildrts_2.png", "Стань отважным героем."),
+        Elder("data/gildrts_2.png", "Пройди через множество испытаний."),
+        Elder("data/gildrts_2.png", "Сразись с ужасными монстрами."),
+        Elder("data/gildrts_2.png", "Спаси нашу деревню!"),
+        Elder("data/gildrts_1.png", "В каждом уровне специальные задания"),
+        Elder("data/gildrts_2.png", "А на пути встретятся разные чудовища"),
+        Elder("data/gildrts_1.png", "Выполняй уровни и убивай монстров"),
+        Elder("data/gildrts_1.png", "Проходи уровень быстрее!"),
+        Elder("data/gildrts_2.png", "Будьте готовы к сражениям!"),
+        Elder("data/gildrts_2.png", "Используйте навыки и ловкость."),
+        Elder("data/gildrts_2.png", "Каждый уровень сложнее предыдущего."),
+        Elder("data/gildrts_1.png", "Но смелость - ключ к успеху."),
+        Elder("data/gildrts_2.png", "Вперед, к приключениям!"),
+        Elder("data/gildrts_2.png", "Станьте легендой!"),
     ]
 
 run_elder()
